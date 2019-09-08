@@ -2,6 +2,7 @@
 // Time: O(n) Space: O(1)
 // partialSum save the contiguous sum
 // when partialSum is negative, reset it to 0
+// sum: max of (sum, partialSum)
 const maxSubArray1 = (nums) => {
     let maxSum = nums[0];
     let partialSum = 0;
@@ -15,3 +16,6 @@ const maxSubArray1 = (nums) => {
 
     return maxSum;
 };
+
+
+console.log('maxSubArr', maxSubArray1([2,-3,5,4, 3, -6, 7]));
