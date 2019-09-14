@@ -34,25 +34,32 @@ const subSets2 = (nums) => {
 const toFindSubSets = (nums, result, subSets, startIdx) => {
     const copy = [...subSets];
     result.push(copy);
+    console.log(`record in result: ${result}, startIdx: ${startIdx}`);
 
     if (startIdx >= nums.length) return;
 
     for (let i = startIdx; i < nums.length; i++) {
+        // console.log(`preSubsets: ${subSets}, startIdx: ${startIdx}`);
         subSets.push(nums[i]);
+        console.log(`call function: i:${i}, result:${result}, subSets:${subSets}`);
         toFindSubSets(nums, result, subSets, i + 1);
+        // console.log('before pop', subSets,i);
         subSets.pop();
+        // console.log('after pop', subSets,i);
     }
 };
 
-console.log('subSet2', subSets2([1, 2, 3]));
+// console.log('subSet2', subSets2([1, 2, 3]));
 
 
-var subsets = function(nums) {
+var subSets3 = function(nums) {
     let res = [];
     let stack = [];
     let n = nums.length;
 
     function ps(start) {
+        console.log(`Top: result:${res}, start:${start}, subSet:${stack}`);
+
         let copy = stack.slice();
         res.push(copy);
 
@@ -61,8 +68,12 @@ var subsets = function(nums) {
         }
 
         for (let i = start; i < n; i++) {
+            console.log(`Loop:  start:${start}, subSet:${stack}, i:${i}`);
+
             stack.push(nums[i]);
             ps(i+1);
+            console.log(`Pop: start:${start}, subSet:${stack}, i:${i}`);
+
             stack.pop();
         }
     }
@@ -72,3 +83,6 @@ var subsets = function(nums) {
 
     return res;
 };
+
+
+subSets3([1,2,3])
