@@ -24,7 +24,7 @@ const productExceptSelf = (nums) => {
     }
 
     return result;
-}
+};
 
 // console.log('productExceptSelf', productExceptSelf([1,2,3,4]));
 

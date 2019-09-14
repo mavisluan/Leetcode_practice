@@ -48,7 +48,7 @@ const singleNumber3 = (nums) => {
     set.forEach(num => sum2 += 2* num); // O(n)
 
     return sum2 - sum1;
-}
+};
 
 console.log(singleNumber3([1, 2, 3, 2, 3, 1, 4]));
 

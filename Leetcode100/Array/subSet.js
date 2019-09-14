@@ -85,4 +85,4 @@ var subSets3 = function(nums) {
 };
 
 
-subSets3([1,2,3])
+subSets3([1,2,3]);

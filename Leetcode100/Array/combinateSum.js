@@ -1,5 +1,5 @@
 // backtrack  (quick exit)
-const combinationSum1 = function(candidates, target) {
+const combinationSum1 = function (candidates, target) {
     let result = [];
     let list = candidates.sort((a, b) => a - b);
 
@@ -24,7 +24,7 @@ const combinationSum1 = function(candidates, target) {
                 arr.pop();
             }
         }
-    }
+    };
 
     backtrack([], 0, target);
     return result;
@@ -35,14 +35,14 @@ const combinationSum1 = function(candidates, target) {
 
 // backtrack
 function combinationSum2(candidates, target) {
-    candidates.sort((a,b) => a - b);
-    const result =[];
+    candidates.sort((a, b) => a - b);
+    const result = [];
     const subSum = [];
     helper(0, target);
 
     return result;
 
-    function helper (start, remain) {
+    function helper(start, remain) {
         const curVal = candidates[start];
         if (remain === curVal) {
             return result.push([...subSum, curVal]);
@@ -57,4 +57,4 @@ function combinationSum2(candidates, target) {
 }
 
 // console.log('combinationSum2', combinationSum2([2,3,6,7], 7));
-console.log('combinationSum2', combinationSum2([8,7,4,3], 11));
+console.log('combinationSum2', combinationSum2([8, 7, 4, 3], 11));
