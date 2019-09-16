@@ -17,7 +17,7 @@ const moveZeroes1 = (nums) => {
 // console.log('moveZeroes1', moveZeroes1([0, 1, 0, 3, 12]));
 // console.log('moveZeroes1', moveZeroes1([0, 0, 1]));
 
-// Solution 2
+// Solution 2 ***** In-Place
 // Time: O(n)   Space: O(1)
 // 开一个变量count=0, 把数组中不为零的数，按顺序移动到下标为count的位置上，每移动一个count++，最后补上0
 const moveZeroes2 = (nums) => {

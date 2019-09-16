@@ -30,4 +30,5 @@ const twoSum2 = (nums, target) => {
     }
 };
 
-console.log('twoSum2', twoSum2([2, 7, 11, 15], 9));
+// console.log('twoSum2', twoSum2([2, 7, 11, 15], 9));
+console.log('twoSum2', twoSum2([2, 3, 5, 10], 7));

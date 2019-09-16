@@ -25,15 +25,31 @@ const findDuplicates = (nums) => {
 // num[index - 1] < 0 (means it's been visited) --> push to dup
 // Notes: check with index - 1, because the largest number could be out of index bound
 const findDuplicates2 = (nums) => {
-    if(nums.length === 0) return [];
-    let index, dup =[];
-    for(let num of nums){
+    if (nums.length === 0) return [];
+    let index, dup = [];
+    for (let num of nums) {
         index = Math.abs(num);
-        if(nums[index-1] < 0){
+        if (nums[index - 1] < 0) {
             dup.push(index);
         } else {
-            nums[index-1] *= -1;
+            nums[index - 1] *= -1;
         }
     }
     return dup;
 };
+
+// Solution 3 Not modify the original array
+// Time: O(nlogn)  Space: O(1) | O(n)
+const findDuplicate3 = (nums) => {
+    //make a copy of the array
+    const copy = [...nums].sort((a, b) => a - b);  // O(nlgn)
+    // console.log('nums', nums);
+    // console.log('copy', copy);
+    for (let i = 1; i < copy.length; i++) {
+        if (copy[i] === copy[i - 1]) return copy[i];
+    }
+
+    return -1;
+};
+
+console.log('findDup3', findDuplicate3([1,6,3,2,5,3]));

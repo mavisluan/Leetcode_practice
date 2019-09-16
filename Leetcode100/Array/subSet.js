@@ -68,11 +68,11 @@ var subSets3 = function(nums) {
         }
 
         for (let i = start; i < n; i++) {
-            console.log(`Loop:  start:${start}, subSet:${stack}, i:${i}`);
+            // console.log(`Loop:  start:${start}, subSet:${stack}, i:${i}`);
 
             stack.push(nums[i]);
             ps(i+1);
-            console.log(`Pop: start:${start}, subSet:${stack}, i:${i}`);
+            // console.log(`Pop: start:${start}, subSet:${stack}, i:${i}`);
 
             stack.pop();
         }

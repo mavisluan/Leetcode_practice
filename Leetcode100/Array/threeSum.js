@@ -21,11 +21,12 @@ const threeSum = function (arr) {
         let right = n - 1;
 
         while (left < right) {
-            if (arr[left] + arr[right] === 0 - base) {
+            const sum = arr[left] + arr[right];
+            if (sum === - base) {
                 result.push([base, arr[left], arr[right]]);
                 left = moveLeft(arr, left + 1);
                 right = moveRight(arr, right - 1);
-            } else if (arr[left] + arr[right] > 0 - base) {
+            } else if (sum > 0 - base) {
                 right = moveRight(arr, right - 1);
             } else {
                 left = moveLeft(arr, left + 1);
