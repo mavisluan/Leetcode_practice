@@ -30,11 +30,11 @@ const search = (nums, target) => {
         let mid = start + Math.floor((end - start) / 2);
 
         if (target === nums[mid]) return mid;
-        if (nums[mid] > nums[start]) {  // mid is on the left side
+        if (nums[mid] > nums[start]) {  // mid's left is sorted
             if (target >= nums[start] && target <= nums[mid]) end = mid;
             else start = mid;
         }
-        if (nums[mid] < nums[end]) {  // mid is on the right side
+        if (nums[mid] < nums[end]) {  // mid's right is sorted
             if (target >= nums[mid] && target <= nums[end]) start = mid;
             else end = mid;
         }
