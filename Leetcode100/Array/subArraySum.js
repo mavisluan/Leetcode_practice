@@ -10,7 +10,7 @@ Note:
 */
 
 // Solution1 Cummulative sum
-// (i: from  0 to n-1;   j: from j to n - 1)
+// (i: from  0 to n-1;   j: from i to n - 1)
 //index:        0  1  2          0  1  2             0  1  2
 //             [1, 1, 1]        [1, 1, 1]           [1, 1, 1]
 //              i                   i                      i

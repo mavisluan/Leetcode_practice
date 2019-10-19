@@ -1,7 +1,7 @@
 // Solution1
 // Time: O(n^2)
 const threeSum = function (arr) {
-    if (!arr || arr.length < 3) return [arr];
+    // if (arr === null || arr.length < 3) return [arr];
     if (arr.length === 3) {
         const sum = arr.reduce((sum, i) => sum + i, 0);
         if (sum === 0) return [arr];
@@ -10,11 +10,10 @@ const threeSum = function (arr) {
     arr.sort((a, b) => a - b);  // O(nlogn)
     const result = [];
     const n = arr.length;
-    let prevBase = null;
     let base = null;
     for (let i = 0; i < n - 2; i++) {  // for && while O(n**2)
         // check if duplicate value
-        if (prevBase === arr[i]) continue;
+        if (base === arr[i]) continue;
         else base = arr[i];
 
         let left = i + 1;
@@ -32,8 +31,6 @@ const threeSum = function (arr) {
                 left = moveLeft(arr, left + 1);
             }
         }
-
-        prevBase = base;
     }
     return result;
 };
