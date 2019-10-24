@@ -33,29 +33,30 @@ const largestRectangle1 = heights => {
 
 // console.log("largestRectangle1", largestRectangle1([2, 1, 5, 6, 2, 3]));
 
-const largestRectangle2 = heights => {
+
+// Solution 2 Use Stack
+// Time: O(n) --> n numbers are pushed and popped  Space: O(n) --> use stack
+// [2, 1, 5, 6, 2, 3]
+// for each index, if the val increases, push the index to the stack
+//                 else calculate area
+
+const largestRectangle2 = arr => {
+    if (arr === null || arr.length === 0) return 0;
+
+    arr.push(0);  // push 0 to the end for the case that all the values increase
     let maxArea = 0;
-    let height, width = 0;
-    let stack = [];
-    const lastIdx = stack[stack.length - 1] || null;
+    const stack = [];
 
-    for (let i = 0; i < heights.length; i++) {
-        let currentHeight = heights[i];
-        while (stack.length > 0 && currentHeight <= heights[lastIdx]) {
-            height = heights[stack.pop()];
-            width = i - lastIdx - 1;
-            maxArea = Math.max(height * width, maxArea);
+    for (let i = 0; i < arr.length; i++) {
+        while (stack.length !== 0 && arr[i] < arr[stack[stack.length - 1]]) {
+            const height = arr[stack.pop()];
+            const width = (stack.length === 0) ? i : i - stack[stack.length - 1] - 1;
+            maxArea = Math.max(maxArea, height * width)
         }
-
-        stack.push(i);
-    }
-
-    while (stack.length > 0) {
-        height = heights[stack.pop()];
-        width = heights.length - lastIdx - 1;
-        maxArea = Math.max(height * width, maxArea);
+        stack.push(i)   // if the stack is empty or currVal > preVal(stack's top idx element's val)
     }
     return maxArea;
 }
+
 
 console.log("largestRectangle2", largestRectangle2([2, 1, 5, 6, 2, 3]));
