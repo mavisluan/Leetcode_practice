@@ -63,12 +63,10 @@ const leastInterval2 = (tasks, n) => {
     if (n === 0) return tasks.length;
 
     const map = {}; // count and record each task's frequency
+    let max = 0; // task max frequency
+
     for (let t of tasks) {
         map[t] = map[t] + 1 || 1;
-    }
-
-    let max = 0; // task max frequency
-    for (let t in map) {
         max = Math.max(max, map[t]);
     }
 
