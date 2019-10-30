@@ -179,7 +179,7 @@ function uniquePathsIII(grid) {
     let emptyCount = 1;
     let res = 0;
 
-    for (let i = 0; i < h; i++) {
+    for (let i = 0; i < h; i++) {    // locate start and end point
         for (let j = 0; j < w; j++) {
             if (grid[i][j] === 0) emptyCount++;
             else if (grid[i][j] === 1) start = [i, j];
@@ -196,7 +196,7 @@ function uniquePathsIII(grid) {
         }
 
         grid[x][y] = Infinity; // Mark visited  (if not a wall or visited)
-        // check on 4 directions, if valid, keep moving, if all directions not valid, reset the position
+        // check on 4 directions, if valid, keep moving, if all directions checked, reset the position
         for (const [di, dj] of dirs) {
             const i = x + di;
             const j = y + dj;
