@@ -57,15 +57,15 @@ const minPathSum = (grid) => {
 const minPathSum2 = (grid) => {
     const [h, w] = [grid.length, grid[0].length];
 
-    for (let i = 1; i < h; i++) {
+    for (let i = 1; i < h; i++) {  // update the first col (from 1,0)
         grid[i][0] += grid[i-1][0];
     }
 
-    for (let j = 1; j < w; j++) {
+    for (let j = 1; j < w; j++) {  // update the first row (from 0,1)
         grid[0][j] += grid[0][j-1];
     }
 
-    for (let i =1; i < h; i++) {
+    for (let i =1; i < h; i++) {   // update the rest of the grid
         for (let j = 1; j < w; j++) {
             grid[i][j] += Math.min(grid[i-1][j], grid[i][j-1]);
         }
