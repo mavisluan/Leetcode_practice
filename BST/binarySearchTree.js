@@ -30,14 +30,19 @@ class BinarySearchTree {
 
     // Helper function
     insertHelper(node, newNode) {
-        if (node === null) return newNode;
         if (newNode.data < node.data) {
-            node.left = this.insertHelper(node.left, newNode);
-        } else if (newNode.data > node.data){
-            node.right = this.insertHelper(node.right, newNode);
+            if (node.left === null) {
+                node.left = newNode;
+            } else {
+                this.insertHelper(node.left, newNode);
+            }
+        } else {
+            if (node.right === null) {
+                node.right = newNode;
+            } else {
+                this.insertHelper(node.right, newNode);
+            }
         }
-
-        return node;
     }
 
     removeHelper(node, data) {
@@ -52,7 +57,7 @@ class BinarySearchTree {
                 return null;
             }
             if (node.left === null)  return node.right;
-            if (node.right === null) return node.left;
+            else if (node.right === null) return node.left;
 
             const replaceVal = this.findMinNode(node.right).data;
             node.data = replaceVal;
@@ -67,11 +72,38 @@ class BinarySearchTree {
            return this.findMinNode(node.left);
        }
     }
-    // getRootNode()
-    // inorder(node)
-    // preorder(node)
-    // postorder(node)
-    // search(node, data)
+    getRootNode() {
+        return this.root;
+    }
+
+    inorder(node) {
+        if (node) {
+            this.inorder(node.left);
+            console.log('in order', node.data);
+            this.inorder(node.right);
+        }
+    }
+    preorder(node) {
+        if (node) {
+            console.log('preorder', node.data);
+            this.preorder(node.left);
+            this.preorder(node.right);
+        }
+    }
+    postorder(node) {
+        this.postorder(node.left);
+        this.postorder(node.right);
+        console.log('postorder', node.data);
+    }
+
+    search(node, data) {
+        if (data === node.data) return node;
+        else if (data < node.data) {
+            return this.search(node.left, data);
+        } else {
+            return this.search(node.right, data);
+        }
+    }
 }
 
 const BST = new BinarySearchTree();
@@ -89,7 +121,10 @@ BST.remove(27);
 BST.remove(22);
 BST.remove(10);
 
-const root= BST.root;
-console.log('root', root);
 
-console.log('min node', BST.findMinNode(root));
+const root= BST.root;
+// console.log('root', root);
+// console.log('min node', BST.findMinNode(root));
+// BST.inorder(root);
+// BST.preorder(root);
+console.log('search 25', BST.search(root, 25));
