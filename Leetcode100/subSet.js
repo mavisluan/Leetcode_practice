@@ -85,4 +85,25 @@ var subSets3 = function(nums) {
 };
 
 
-subSets3([1,2,3]);
+// subSets3([1,2,3]);
+
+const subSetsRecursion = arr => {
+    const result = [[]];
+    const ss = [];
+
+    helper(ss, 0);
+
+    function helper(ss, start) {
+        if (start === arr.length) return;
+        ss.push(arr[start]);
+        result.push([...ss]);
+
+        helper(ss, start + 1);
+        ss.pop();
+        helper(ss, start + 1);
+    }
+
+    return result;
+};
+
+console.log('subSetsRecursion', subSetsRecursion([1,2,3]))
