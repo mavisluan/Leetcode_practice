@@ -19,11 +19,6 @@ const subSets1 = (nums) => {
 // console.log('subSets1', subSets1([1,2,3]));
 
 // Solution 2 BackTracking
-// Time: O(2^n)
-// res will store all subsets.
-// O(2 ^ (number of elements inside array))
-// because at every step we have two choices
-// either include or ignore.
 const subSets2 = (nums) => {
     const result = [];
 
@@ -57,6 +52,12 @@ const toFindSubSets = (nums, result, subSets, startIdx) => {
 // console.log('subSet2', subSets2([1, 2, 3]));
 
 
+// Time: O(2^n)
+// res will store all subsets.
+// O(2 ^ (number of elements inside array))
+// because in the array nums,
+// at every step we have two choices for each element
+// either include or ignore the element in our subset.
 var subSets3 = function(nums) {
     let res = [];
     let stack = [];
@@ -75,11 +76,11 @@ var subSets3 = function(nums) {
         for (let i = start; i < n; i++) {
             // console.log(`Loop:  start:${start}, subSet:${stack}, i:${i}`);
 
-            stack.push(nums[i]);
+            stack.push(nums[i]);  // include nums[i] in subset
             ps(i+1);
             // console.log(`Pop: start:${start}, subSet:${stack}, i:${i}`);
 
-            stack.pop();
+            stack.pop();  // exclude nums[i] from subset and triggers backtracking
         }
     }
 
