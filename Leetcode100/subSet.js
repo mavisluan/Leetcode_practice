@@ -19,6 +19,11 @@ const subSets1 = (nums) => {
 // console.log('subSets1', subSets1([1,2,3]));
 
 // Solution 2 BackTracking
+// Time: O(2^n)
+// res will store all subsets.
+// O(2 ^ (number of elements inside array))
+// because at every step we have two choices
+// either include or ignore.
 const subSets2 = (nums) => {
     const result = [];
 
@@ -86,7 +91,7 @@ var subSets3 = function(nums) {
 
 
 // subSets3([1,2,3]);
-
+// Take more space because of call stacks
 const subSetsRecursion = arr => {
     const result = [[]];
     const ss = [];
