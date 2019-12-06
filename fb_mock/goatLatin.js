@@ -15,17 +15,21 @@ For example, the first word gets "a" added to the end, the second word gets "aa"
 Return the final sentence representing the conversion from S to Goat Latin.
  */
 // Time: O(n) Space: O(n^2) -- space taken by adding "a"s
-var toGoatLatin = function(S) {
-    const vowels = new Set(["a", "e",  "i", "o", "u"]);
+var toGoatLatin = function (S) {
+    const vowels = new Set(["a", "e", "i", "o", "u"]);
     const words = S.split(" ");
-    for (let i = 0; i < words.length; i ++) {
+    for (let i = 0; i < words.length; i++) {
         if (!vowels.has(words[i][0].toLowerCase())) {
             words[i] = words[i].substring(1) + words[i][0];
         }
         words[i] += "ma";
-        let addon = ("a").repeat(i+1);
+        let addon = ("a").repeat(i + 1);
         words[i] += addon;
     }
 
     return words.join(" ");
 };
+
+console.log('toGoatLatin', toGoatLatin("I speak Goat Latin") === "Imaa peaksmaaa oatGmaaaa atinLmaaaaa");
+console.log('toGoatLatin', toGoatLatin("The quick brown fox jumped over the lazy dog") === "heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa");
+
