@@ -66,35 +66,35 @@ class LRUCache {
 
 // Solution 2 Hashtable + DLL
 var LRUCache2 = function(capacity) {
-    this.capacity = capacity;
-    this.size = 0;
-    this.head = null;
-    this.tail = null;
-    this.map = {};
+    this._capacity = capacity;
+    this._count = 0;
+    this._head = null;
+    this._tail = null;
+    this._hashTable = {};
 };
 
 /**
  * @param {number} key
  * @return {number}
  */
-LRUCache2.prototype.get = function(k) {
-    if (this.map[k]) {
-        const { value } = this.map[k];
-        const { prev, next } = this.map[k];
+LRUCache2.prototype.get = function(key) {
+    if (this._hashTable[key]) {
+        const { value } = this._hashTable[key];
+        const { prev, next } = this._hashTable[key];
         if (prev) { prev.next = next; }
         if (next) { next.prev = prev || next.prev; }
 
-        if (this._tail === this.map[k]) {
-            this._tail = prev || this.map[k];
+        if (this._tail === this._hashTable[key]) {
+            this._tail = prev || this._hashTable[key];
         }
 
-        this.map[k].prev = null;
-        if (this._head !== this.map[k]) {
-            this.map[k].next = this._head;
-            this._head.prev = this.map[k];
+        this._hashTable[key].prev = null;
+        if (this._head !== this._hashTable[key]) {
+            this._hashTable[key].next = this._head;
+            this._head.prev = this._hashTable[key];
         }
 
-        this._head = this.map[k];
+        this._head = this._hashTable[key];
 
         return value;
     }
@@ -103,40 +103,40 @@ LRUCache2.prototype.get = function(k) {
 };
 
 /**
- * @param {number} k
+ * @param {number} key
  * @param {number} value
  * @return {void}
  */
-LRUCache2.prototype.put = function(k, value) {
-    if (this.map[k]) {
-        this.map[k].value = value;
-        this.get(k);
+LRUCache2.prototype.put = function(key, value) {
+    if (this._hashTable[key]) {
+        this._hashTable[key].value = value;
+        this.get(key);
     } else {
-        this.map[k] = { k, value, prev: null, next: null };
+        this._hashTable[key] = { key, value, prev: null, next: null };
         if (this._head) {
-            this._head.prev = this.map[k];
-            this.map[k].next = this._head;
+            this._head.prev = this._hashTable[key];
+            this._hashTable[key].next = this._head;
         }
 
-        this._head = this.map[k];
+        this._head = this._hashTable[key];
 
         if (!this._tail) {
-            this._tail = this.map[k];
+            this._tail = this._hashTable[key];
         }
 
         this._count += 1;
     }
 
     if (this._count > this._capacity) {
-        let removedk = this._tail.k;
+        let removedKey = this._tail.key;
 
         if (this._tail.prev) {
             this._tail.prev.next = null;
             this._tail = this._tail.prev;
-            this.map[removedk].prev = null;
+            this._hashTable[removedKey].prev = null;
         }
 
-        delete this.map[removedk];
+        delete this._hashTable[removedKey];
 
         this._count -= 1;
     }
