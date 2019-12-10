@@ -30,8 +30,10 @@ Output: 3
 
 // Time: O(mn)
 var numIslands = function (grid) {
-    const [m, n] = [grid.length, grid[0].length];
-    if (m === 0 || n === 0) return 0;
+    const m = grid.length;
+    if (m === 0) return 0;   // edge case: if grid is empty
+    const n = grid[0].length;
+
     let count = 0;
 
     for (let y = 0; y < m; y++) {
