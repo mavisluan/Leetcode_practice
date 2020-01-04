@@ -1,6 +1,8 @@
 
 // Solution 1 Set
-// Time: O(n)   Space: O(n)
+// Time: O(2n) - O(n)  - In the worst case each char will be visited twice by left and right
+// Space: O(min(m,n)) - We need O(k) space for the sliding window, where k is the size of the Set.
+// the size of the set is upper bounded by the size of the string n and the size of the charset m.
 /*
     left
         - tracks the valid starting point
