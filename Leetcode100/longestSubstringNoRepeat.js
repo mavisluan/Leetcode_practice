@@ -1,9 +1,11 @@
 
-// Solution 1 Set
+// Solution 1 Set -- Sliding window method (without duplicate the cars start with index left)
 // Time: O(2n) - O(n)  - In the worst case each char will be visited twice by left and right
 // Space: O(min(m,n)) - We need O(k) space for the sliding window, where k is the size of the Set.
 // the size of the set is upper bounded by the size of the string n and the size of the charset m.
 /*
+    substr
+        - a HashSet to store the chars in current window [left, right ) (right = left initially)
     left
         - tracks the valid starting point
         - moves forward on char repeats/exists in the substr
