@@ -35,7 +35,33 @@ const lengthOfLongestSubstring1 = (s) => {
     return maxLen;
 };
 
+// Solution 2 Map() -- Sliding window optimized
+// Use 'seen' map to keep the track of char and its index
+// If a char exists in seen
+//      - move the left pointer to the seen.get(char) index + 1
+//      - Update the char's value in the map with the new index
 
+// Time: O(n)
+const lengthOfLongestSubstring2 = function(s) {
+    let [left, right, maxLen] = [0,0,0];
+    const seen = new Map();
+    const size = s.length;
+// quick exit if maxLen is bigger than the rest of the checking length
+                  //                   |
+    while (right < size && (size - left > maxLen)) {
+        const char = s[right];
+        if (seen.has(char)) {
+            left = Math.max(seen.get(char) + 1, left);
+        }
+
+        maxLen = Math.max(maxLen, right - left + 1);
+        seen.set(char, right);
+        right ++
+    }
+
+    return maxLen;
+
+};
 
 // const lengthOfLongestSubstring = function (s) {
 //     let maxLen = 0;
