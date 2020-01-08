@@ -28,6 +28,7 @@ const [n4, n5] = [new ListNode(3), new ListNode(4)];
 head2.next = n4;
 n4.next = n5;
 
+// Time: O( m * n )
 const mergeTwoLists1 = (l1, l2) => {
     let node = l1;
     if (!l1) return l2;
@@ -59,8 +60,14 @@ console.log('mergeTwoSortedLists1', mergeTwoLists1(head1, head2));
 
 
 // Recursive
+// 1. compare two nodes' vals
+// 2. Recursive call with (smallerNode.next, biggerNode) --> Keep comparing until one node is null
+// 3. Return the smaller node
+// Time: O(m+n) --> Each recursive call increments the pointer to l1 or l2 by one until one reach the end (null)
+// Space: O(m+n) --> The first call doesn't return until the ends of both l1 and l2 have reached (m +n) stacks
 var mergeTwoLists2 = function (l1, l2) {
-    if (!l1 || !l2) return (l1 ? l1 : l2);
+    if (!l1 || !l2) return (l1 ? l1 : l2); // if (l1 === null) return l2; if (l2 === null) return l1;
+
     if (l1.val < l2.val) {
         l1.next = mergeTwoLists2(l1.next, l2);
         return l1;
