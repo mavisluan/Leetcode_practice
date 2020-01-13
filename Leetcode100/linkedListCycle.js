@@ -60,6 +60,7 @@ node1.next = node2;
 node2.next = node3;
 node3.next = node4;
 node4.next = node2;
+
 // console.log('node1', node1);
 // console.log('node1.next', node1.next)
 // console.log('node2.next', node2.next)
@@ -89,6 +90,8 @@ const hasCycle = function(head) {
 };
 
 
-console.log('hasCycle', hasCycle(node1)=== true);
-console.log('hasCycle', hasCycle(node5)=== true);
-console.log('hasCycle', hasCycle(node7)=== false);
+// console.log('hasCycle', hasCycle(node1)=== true);
+// console.log('hasCycle', hasCycle(node5)=== true);
+// console.log('hasCycle', hasCycle(node7)=== false);
+
+module.exports= { ListNode, node1, node2, node3, node4, node5, node6, node7};
