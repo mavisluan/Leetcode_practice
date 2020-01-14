@@ -94,4 +94,25 @@ const hasCycle = function(head) {
 // console.log('hasCycle', hasCycle(node5)=== true);
 // console.log('hasCycle', hasCycle(node7)=== false);
 
+
+// Solution 2 HashTable
+// Time: O(n) -- visit each of the n elements in the list at most once
+// Space: O(n)  -- the size of the set
+const hasCycle2 = (head) => {
+    const seen = new Set();
+
+    while ( head ) {
+        if (seen.has(head)) return true;
+
+        seen.add(head);
+        head = head.next;
+    }
+
+    return false;
+};
+
+console.log('hasCycle', hasCycle2(node1)=== true);
+console.log('hasCycle', hasCycle2(node5)=== true);
+console.log('hasCycle', hasCycle2(node7)=== false);
+
 module.exports= { ListNode, node1, node2, node3, node4, node5, node6, node7};
