@@ -66,6 +66,20 @@ const detectCycle = function(head) {
 };
 
 
-console.log('detectCycle', detectCycle(node1) === node2);
-console.log('detectCycle', detectCycle(node5) === node5);
-console.log('detectCycle', detectCycle(node7) === null);
+// Solution 2 Hashtable
+// Time: O(n)  Space: O(n)
+const detectCycle2 = (head) => {
+    const seen = new Set();
+
+    while (head) {
+        if (seen.has(head)) return head;
+        seen.add(head);
+        head = head.next;
+    }
+
+    return null;
+};
+
+console.log('detectCycle', detectCycle2(node1) === node2);
+console.log('detectCycle', detectCycle2(node5) === node5);
+console.log('detectCycle', detectCycle2(node7) === null);
