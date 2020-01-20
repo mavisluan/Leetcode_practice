@@ -54,7 +54,7 @@ const detectCycle = function(head) {
         if (slow === fast) {
             while (runner !== slow) {
                 // when slow and fast meet
-                // fast runs
+                // fast runs twice of the slow's distance
                 runner = runner.next;
                 slow = slow.next;
             }
