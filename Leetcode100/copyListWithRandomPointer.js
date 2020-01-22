@@ -82,3 +82,46 @@ const copyRandomList = (head) => {
 
 const copyiedList = copyRandomList(node0);
 console.log(copyiedList);
+
+// Solution 2 Iterative
+// Time: O(n)   Space: O(n)
+const copyRandomList2 = (head) => {
+    if (!head) return null;
+
+    const visitedMap = new Map();
+    // created a function to
+    //  return the cloned node if exists (old node's value --> new node)
+    //  create a new node, save it as value of old node's --> return the new Node
+    const getClonedNode = (node) => {
+        // if the node exists
+        if (node) {
+            // check if node is in the visitedMap
+            if (visitedMap.has(node)) {
+                return visitedMap.get(node);
+            } else {
+                const newNode = new Node(node.val, null, null);
+                visitedMap.set(node, newNode);
+
+                return visitedMap.get(node);
+            }
+        }
+
+        return null;
+    };
+
+    // set two pointers -- to the oldNode and newNode
+    let oldNode = head;
+    let newNode = new Node (oldNode.val); // newNode currently only has value, next and random are null
+    visitedMap.set(oldNode, newNode);
+    // Iterate on the linked list until all nodes are cloned
+    while (oldNode) {
+        // Get the clones of the nodes referenced by random and next pointers
+        newNode.random = getClonedNode(oldNode.random);
+        newNode.next = getClonedNode(oldNode.next);
+        // Move one step ahead in the linked list
+        oldNode = oldNode.next;
+        newNode = newNode.next;
+    }
+
+    return visitedMap.get(head)
+};
