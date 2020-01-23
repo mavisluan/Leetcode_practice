@@ -118,10 +118,14 @@ const copyRandomList2 = (head) => {
         // Get the clones of the nodes referenced by random and next pointers
         newNode.random = getClonedNode(oldNode.random);
         newNode.next = getClonedNode(oldNode.next);
+        // ------- newNode get the references of next and random---------///
         // Move one step ahead in the linked list
         oldNode = oldNode.next;
         newNode = newNode.next;
+        // ----------Then next newNode doesn't next and random references---------//
     }
 
     return visitedMap.get(head)
+    // after iteration, newNode is null
+    // --> so we need to return the newHead through visitedMap
 };
