@@ -137,6 +137,7 @@ const copyRandomList3 = (head) => {
     if (!head) return null;
     let oldNode = head;
 
+    // Traverse the original list and clone the nodes as you go and place the cloned copy next to its original node
     while (oldNode) {
         const newNode = new Node(oldNode.val, null, null);
         newNode.next = oldNode.next;
@@ -144,7 +145,8 @@ const copyRandomList3 = (head) => {
         oldNode = newNode.next;
     }
 
-    oldNode = head;
+    oldNode = head; // Reset the pointer to the beginning of the list
+    // Iterate the list, use the original nodes' random pointers to assign references to the random pointers for the cloned nodes
     while (oldNode) {
         const newNode = oldNode.next;
         if (oldNode.random) newNode.random = oldNode.random.next;
@@ -154,6 +156,7 @@ const copyRandomList3 = (head) => {
     let oldList = head;
     let newList = head.next;
     const newHead = head.next;
+    // Correct the next pointers in oldList and newList
     while (oldList) {
         oldList.next = oldList.next.next;
         newList.next = (oldList.next) ? newList.next.next : null;
