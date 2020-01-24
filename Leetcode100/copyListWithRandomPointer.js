@@ -48,7 +48,7 @@ node3.random = node2;
 node4.random = node0;
 
 // Solution 1 HashMap recursive
-// Time: O(n)  Space: O(n)
+// Time: O(n) -> Make one pass over all list nodes  Space: O(n) --> use a hashMap to store old list nodes and new nodes
 // 1. Track the visited node with Map()
 // 2. Traverse the graph from head node
 //  -- if head current node exists, return the node
@@ -128,4 +128,38 @@ const copyRandomList2 = (head) => {
     return visitedMap.get(head)
     // after iteration, newNode is null
     // --> so we need to return the newHead through visitedMap
+};
+
+
+// Solution 3  Iterative with O(1) Space
+// Time: O(n) Space: O(1)
+const copyRandomList3 = (head) => {
+    if (!head) return null;
+    let oldNode = head;
+
+    while (oldNode) {
+        const newNode = new Node(oldNode.val, null, null);
+        newNode.next = oldNode.next;
+        oldNode.next = newNode;
+        oldNode = newNode.next;
+    }
+
+    oldNode = head;
+    while (oldNode) {
+        const newNode = oldNode.next;
+        if (oldNode.random) newNode.random = oldNode.random.next;
+        oldNode = newNode.next;
+    }
+
+    let oldList = head;
+    let newList = head.next;
+    const newHead = head.next;
+    while (oldList) {
+        oldList.next = oldList.next.next;
+        newList.next = (oldList.next) ? newList.next.next : null;
+        oldList = oldList.next;
+        newList = newList.next;
+    }
+
+    return newHead;
 };
