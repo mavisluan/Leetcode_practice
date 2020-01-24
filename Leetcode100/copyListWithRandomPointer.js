@@ -157,6 +157,9 @@ const copyRandomList3 = (head) => {
     let newList = head.next;
     const newHead = head.next;
     // Correct the next pointers in oldList and newList
+    // Connect oldList.next to the oldList node
+    // Connect newList.next to the newList node
+    // Move the two pointers
     while (oldList) {
         oldList.next = oldList.next.next;
         newList.next = (oldList.next) ? newList.next.next : null;
