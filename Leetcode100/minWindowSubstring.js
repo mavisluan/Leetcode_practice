@@ -12,16 +12,6 @@ Note:
 If there is no such window in S that covers all characters in T, return the empty string "".
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
  */
-/*
-SUMMARY
-Use two pointers(left & right) to :
-
-Find a valid window (a substring that contains all the characters we need to match)
-Check if this valid window is the shortest known valid window. If it is, update your answer.
-Minimize the valid window. If it is still valid repeat step 2.
-Repeat steps 1 - 3 for the entirety of the input string.
- */
-
 
 // Solution
 // Time: O(S+T)    Space: O(S+T)
