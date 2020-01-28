@@ -27,7 +27,11 @@ Example 2:
 Input: [[7,10],[2,4]]
 Output: true
  */
-
+// Solution 1: Bruce force
+//  Time: O(n^2) Space: O(1)
+// 1. Sort the intervals array by meeting's starting time (intervals[i][0])
+// 2. If the first meeting's end time > the next meeting's start time --> return false
+ 
 var canAttendMeetings = function(intervals) {
     const size = intervals.length;
 
@@ -36,8 +40,6 @@ var canAttendMeetings = function(intervals) {
     intervals.sort((a, b) => a[0] - b[0]);
     for (let i = 0; i < size; i ++) {
         for ( let j = i + 1; j < size; j ++) {
-            if (intervals[i][1] > intervals[j][1] && intervals[j][0] > intervals[i][1]) return false;
-
             if (intervals[i][1] > intervals[j][0]) return false;
         }
     }
