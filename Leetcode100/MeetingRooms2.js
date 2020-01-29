@@ -32,9 +32,8 @@ Output: true
 // Since it's not sorted, 
 // consider two cases: 1)  a[0] >= b[0]   2) a[0] >= b[0]
 var canAttendMeetings = function(intervals) {
+    if (intervals === null || intervals.length <=1) return true;
     const size = intervals.length;
-
-    if (size <= 1) return true;
     
     for (let i = 0; i < size; i ++) {
         for ( let j = i + 1; j < size; j ++) {
@@ -47,10 +46,12 @@ var canAttendMeetings = function(intervals) {
 };
 
 const overLap = (interval1, interval2) => {
-    return ((interval1[0] <= interval2[0] && interval2[0] < interval1[1])
-        || (interval1[0] >= interval2[0] && interval2[1] > interval1[0])
-    )
-}
+    // return ((interval1[0] <= interval2[0] && interval2[0] < interval1[1])
+    //     || (interval1[0] >= interval2[0] && interval2[1] > interval1[0])
+    // )
+    // If the earliest end time is bigger than the latest start time, overLap is true
+    return Math.max(interval1[0], interval2[0]) < Math.min(interval1[1], interval2[1]);
+    }
 
 
 // Solution2 Sorting
@@ -58,9 +59,8 @@ const overLap = (interval1, interval2) => {
 // 1. Sort the intervals array by meeting's starting time (intervals[i][0])
 // 2. If the first meeting's end time > the next meeting's start time --> return false
 var canAttendMeetings = function(intervals) {
+    if (intervals === null || intervals.length <=1) return true;
     const size = intervals.length;
-
-    if (size <= 1) return true;
 
     intervals.sort((a, b) => a[0] - b[0]);
     for (let i = 0; i < size - 1; i ++) {
