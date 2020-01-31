@@ -13,6 +13,19 @@ Input: [[7,10],[2,4]]
 Output: 1
 
  */
+const minMeetingRooms = function(intervals) {
+    if (intervals === null) return 0;
+    const size = intervals.length;
+    if (size <= 1) return size;
+
+    intervals.sort((a, b) => a[0] - b[0]);
+    let counter = 1;
+    for (let i = 0; i < size - 1; i++) {
+        if (intervals[i][1] > intervals[i + 1][0]) counter++;
+    }
+
+    return counter;
+};
 
 /*
 252. Meeting Rooms
@@ -51,6 +64,7 @@ const canAttendMeetings = function(intervals) {
 
 // Solution2 Sorting
 // Time: O(n Logn) Space: O(1)
+// JS sort function: For arrays containing 10 or fewer elements, time complexity of .sort is O(n^2), and space complexity is O(1). For longer arrays time complexity is Θ(n log(n)) (average case), and space complexity is O(log(n))
 // 1. Sort the intervals array by meeting's starting time (intervals[i][0])
 // 2. If the first meeting's end time > the next meeting's start time --> return false
 const canAttendMeetings2 = function(intervals) {
@@ -68,4 +82,5 @@ const canAttendMeetings2 = function(intervals) {
 module.exports = {
     canAttendMeetings,
     canAttendMeetings2,
+    minMeetingRooms,
 };
