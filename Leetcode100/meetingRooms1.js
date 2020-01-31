@@ -50,7 +50,7 @@ const canAttendMeetings2 = function(intervals) {
     return true;
 };
 
-// Solution3
+// Solution3 Check if there are more than 1 person exists in the room at certain time
 // 1. Create starts and ends arrays to collect all start time and end times
 // 2. Sort the starts and ends array in ascending order
 // 3. Check if the new meeting's start time < old meeting's end time --> return false
