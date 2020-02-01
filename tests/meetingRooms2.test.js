@@ -48,7 +48,11 @@ const test = fn => {
 
         it('Should return two when two meetings overlap', () => {
             assert.equal(
-                fn([[9,10],[4,9],[4,17]]),
+                fn([
+                    [9, 10],
+                    [4, 9],
+                    [4, 17],
+                ]),
                 2
             );
         });
