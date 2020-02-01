@@ -35,6 +35,24 @@ const test = fn => {
             );
         });
 
+        it('Should return two when two meetings overlap', () => {
+            assert.equal(
+                fn([
+                    [2, 11],
+                    [6, 16],
+                    [11, 16],
+                ]),
+                2
+            );
+        });
+
+        it('Should return two when two meetings overlap', () => {
+            assert.equal(
+                fn([[9,10],[4,9],[4,17]]),
+                2
+            );
+        });
+
         it('Should return 0 when intervals are empty', () => {
             assert.equal(fn([]), 0);
         });
