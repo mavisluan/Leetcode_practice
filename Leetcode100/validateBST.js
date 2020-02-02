@@ -29,12 +29,14 @@ Input: [5,1,4,null,null,3,6]
 Output: false
 Explanation: The root node's value is 5 but its right child's value is 4.
  */
+const { Node } = require('../BST/binarySearchTree');
 
 const isValidBST = function(root) {
     if (!root) return true;
 
     const helper = (node, min, max) => {
         if (!node) return true;
+
         if (node.val <= min || node.val >= max) return false;
 
         const left = helper(node.left, min, node.val);
