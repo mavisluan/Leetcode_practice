@@ -39,28 +39,50 @@ describe('BinarySearchTree', () => {
             assert.deepInclude(bst, { root: { val: 30, left: null, right: null } });
         });
 
-        it('should insert the node to the left if it is smaller than the root', () => {
-            bst.insert(30);
+        it('should insert the node to the left if it is smaller than the parent node', () => {
             bst.insert(25);
 
             assert.include(bst.root.left, { val: 25, left: null, right: null });
+        });
+
+        it('should insert the node to the right if it is bigger than the parent node', () => {
+            bst.insert(35);
+
+            assert.include(bst.root.right, { val: 35, left: null, right: null });
         });
 
         // REMOVE
         it('should remove the node with the same value', () => {
             bst.remove(25);
 
-            assert.notDeepInclude(bst, { val: 30, left: null, right: null });
+            assert.notDeepInclude(bst, { val: 25, left: null, right: null });
         });
 
-        // it('should be an empty bst again if the root is removed', () => {
-        //     bst.remove(30);
-        //     assert.include(bst, { root: null });
-        // });
+        it('should remove the node with the same value', () => {
+            bst.remove(35);
 
+            assert.notDeepInclude(bst, { val: 35, left: null, right: null });
+        });
+
+        const bst1 = createBST([15, 25, 10, 7, 22]);
         it('Should return true if the tree is valid', () => {
-            const bst1 = createBST([15, 25, 10, 7, 22]);
             assert.equal(isValidBST(bst1), true);
+        });
+
+        // findMinNode
+        it('should return the node with min value', () => {
+            assert.include(bst1.findMinNode(bst1.root), { val: 7, left: null, right: null });
+        });
+
+        it('should return the root of the bst', () => {
+            assert.include(bst1.getRootNode(bst1.root), { val: 15 });
+        });
+
+        // REMOVE - node.left === null || node.right === null
+        it('should remove the node with the same value', () => {
+            bst1.remove(10);
+
+            assert.notDeepInclude(bst, { val: 10, left: null, right: null });
         });
     });
 });
