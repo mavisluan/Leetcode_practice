@@ -84,5 +84,14 @@ describe('BinarySearchTree', () => {
 
             assert.notDeepInclude(bst, { val: 10, left: null, right: null });
         });
+
+        // SEARCH
+        it('should return the node if it is found', () => {
+            assert.include(bst1.search(bst1.root, 22), { val: 22 });
+        });
+
+        // INORDER (check node order and print result ?)
+        // PREORDER
+        // POSTORDER
     });
 });
