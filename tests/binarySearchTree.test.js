@@ -27,6 +27,10 @@ describe('BinarySearchTree', () => {
             assert.instanceOf(bst, BinarySearchTree);
         });
 
+        it('Should return true if the tree is empty', () => {
+            assert.equal(isValidBST(null), true);
+        });
+
         it('should include a root whose value is null in a new BST', () => {
             assert.include(bst, { root: null });
         });
@@ -64,7 +68,7 @@ describe('BinarySearchTree', () => {
             assert.notDeepInclude(bst, { val: 35, left: null, right: null });
         });
 
-        const bst1 = createBST([15, 25, 10, 7, 22]);
+        const bst1 = createBST([15, 25, 10, 7, 22, 23, 12, 29]);
         it('Should return true if the tree is valid', () => {
             assert.equal(isValidBST(bst1), true);
         });
@@ -85,13 +89,15 @@ describe('BinarySearchTree', () => {
             assert.notDeepInclude(bst, { val: 10, left: null, right: null });
         });
 
+        it('should remove the node with the same value', () => {
+            bst1.remove(25);
+
+            assert.notDeepInclude(bst, { val: 25, left: null, right: null });
+        });
+
         // SEARCH
         it('should return the node if it is found', () => {
             assert.include(bst1.search(bst1.root, 22), { val: 22 });
         });
-
-        // INORDER (check node order and print result ?)
-        // PREORDER
-        // POSTORDER
     });
 });

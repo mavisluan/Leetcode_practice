@@ -107,26 +107,26 @@ class BinarySearchTree {
     }
 }
 
-// const BST = new BinarySearchTree();
-// BST.insert(15);
-// BST.insert(25);
-// BST.insert(10);
-// BST.insert(7);
-// BST.insert(22);
-// BST.insert(17);
-// BST.insert(13);
-// BST.insert(5);
-// BST.insert(9);
-// BST.insert(27);
-// BST.remove(27);
-// BST.remove(22);
-// BST.remove(10);
+const BST = new BinarySearchTree();
+BST.insert(15);
+BST.insert(25);
+BST.insert(10);
+BST.insert(7);
+BST.insert(22);
+BST.insert(17);
+BST.insert(13);
+BST.insert(5);
+BST.insert(9);
+BST.insert(27);
+BST.remove(27);
+BST.remove(22);
+BST.remove(10);
 
-// const { root } = BST;
+const { root } = BST;
 // console.log('root', root);
 // console.log('min node', BST.findMinNode(root));
-// BST.inorder(root);
-// BST.preorder(root);
+BST.inorder(root);
+BST.preorder(root);
 // console.log('search 25', BST.search(root, 25));
 
 module.exports = { Node, BinarySearchTree };
