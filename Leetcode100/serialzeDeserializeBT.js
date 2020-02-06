@@ -37,7 +37,24 @@ const serialize = root => {
  * @param {string} data
  * @return {TreeNode}
  */
-const deserialize = function(data) {};
+const deserialize = function(data) {
+    if (data.length === 0) return null;
+    const root = new TreeNode(data.shift());
+    const stack = [root];
+
+    while (stack.length > 0) {
+        const node = stack.shift();
+        const leftVal = data.shift();
+        const rightVal = data.shift();
+
+        node.left = leftVal !== null ? new TreeNode(leftVal) : null;
+        node.right = rightVal !== null ? new TreeNode(rightVal) : null;
+
+        if (node.left !== null) stack.push(node.left);
+        if (node.right !== null) stack.push(node.right);
+    }
+    return root;
+};
 
 /**
  * Your functions will be called as such:
