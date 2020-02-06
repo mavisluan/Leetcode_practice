@@ -12,7 +12,17 @@
  * @param {TreeNode} root
  * @return {string}
  */
-const serialize = root => {
+
+// Solution 1 BFS
+/*
+1. Vars: stack: [], currNode: BTNode, result: []
+2. stack =[root] 
+3. While stack is not empty
+    - Get currNode: node = stack.shift();
+    - save currNode.val to result
+    - push currNode's left & right nodes to stack
+*/
+const serializeBFS = root => {
     if (!root) return [];
 
     let stack = [];
@@ -37,7 +47,18 @@ const serialize = root => {
  * @param {string} data
  * @return {TreeNode}
  */
-const deserialize = function(data) {
+
+// Solution 1 BFS
+/*
+1. Create root node with data.shift() (first val from data array)
+2. stack = [root] 
+3. While stack is not empty
+    - Get currNode: node = stack.shift();
+    - Get leftVal, rightVal with stack.shift();
+    - Create and add left and right nodes to current Node;
+    - push currNode's left & right nodes to stack  
+*/
+const deserializeBFS = function(data) {
     if (data.length === 0) return null;
     const root = new TreeNode(data.shift());
     const stack = [root];
