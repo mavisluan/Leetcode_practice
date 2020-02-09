@@ -27,12 +27,12 @@ const deserializeDFS = data => {
 
     const root = new TreeNode(data.shift());
     const helper = node => {
-        if (node === null) return null;
+        if (node === null) return null; // if node is null, return null as node.left or node.right
         const leftVal = data.shift();
         node.left = helper(leftVal === null ? null : new TreeNode(leftVal));
         const rightVal = data.shift();
         node.right = helper(rightVal === null ? null : new TreeNode(rightVal));
-        return node;
+        return node; // if node is NOT null, return node as node.left or node.right
     };
 
     helper(root);

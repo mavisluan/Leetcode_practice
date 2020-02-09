@@ -51,8 +51,9 @@ const serializeBFS = root => {
 // Solution 1 BFS
 /*
 1. Create root node with data.shift() (first val from data array)
-2. stack = [root] 
-3. While stack is not empty
+2. stack = [root]  
+3. While stack is not empty 
+- stack tracks all nodes, shift the currNode and add left & right node to it
     - Get currNode: node = stack.shift();
     - Get leftVal, rightVal with stack.shift();
     - Create and add left and right nodes to current Node;
