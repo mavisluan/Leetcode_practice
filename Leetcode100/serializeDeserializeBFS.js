@@ -14,6 +14,12 @@
  */
 
 // Solution 1 BFS
+/**
+Time complexity : in both serialization and deserialization functions, we visit each node exactly once, thus the time complexity is O(N), where 
+N is the number of nodes, i.e. the size of tree.
+
+Space complexity : in both serialization and deserialization functions, we keep the entire tree, either at the beginning or at the end, therefore, the space complexity is O(N).
+ */
 /*
 1. Vars: stack: [], currNode: BTNode, result: []
 2. stack =[root] 
