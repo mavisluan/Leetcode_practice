@@ -46,4 +46,34 @@ function generateParenthesis(n) {
     return res;
 }
 
-console.log('generateParenthesis', generateParenthesis(3));
+// console.log('generateParenthesis', generateParenthesis(3));
+
+// Solution 2 backtrack (array)
+function backtrack(res, len, curr = [], presum = 0) {
+    // console.log(`curr:${curr}, presum:${presum}, currLen: ${curr.length}`);
+    if (curr.length === len) {
+        res.push(curr.join(''));
+        return;
+    }
+    if (presum < len - curr.length) {
+        // console.log('push (');
+
+        curr.push('(');
+        backtrack(res, len, curr, presum + 1);
+        curr.pop();
+    }
+    if (presum > 0) {
+        // console.log('push )');
+
+        curr.push(')');
+        backtrack(res, len, curr, presum - 1);
+        curr.pop();
+    }
+}
+
+const generateParenthesis2 = function(n) {
+    const res = [];
+    backtrack(res, 2 * n);
+    return res;
+};
+console.log('generateParenthesis2', generateParenthesis2(3));
