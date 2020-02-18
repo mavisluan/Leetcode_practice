@@ -17,6 +17,8 @@ Example 3:
 Input: ")("
 Output: [""] 
  */
+
+// Solution 1 DFS
 const removeInvalidParentheses = s => {
     const answer = new Set();
     // Find out the number of misplaced left and right parentheses
@@ -34,7 +36,10 @@ const removeInvalidParentheses = s => {
         }
     }
 
+    // left, right --> left, right paranthese' number
+    // leftRem, rightRem --> misplaced left and right paranthese' number
     const dfs = (index, left, right, leftRem, rightRem, cur) => {
+        console.log(`i:${index}, l:${left}, r: ${right}, leftRem:${leftRem}, rightRem:${rightRem}, cur:${cur}`);
         if (index === s.length) {
             // If we reach the end of the string, the counts of left and right paran are balanced
             // and no misplaced leftRem or rightRem left
@@ -42,10 +47,14 @@ const removeInvalidParentheses = s => {
                 answer.add(cur);
             }
         } else if (s[index] === '(') {
+            // For each "(" or ")", if leftRem or rightRem > 0,
+            // there are two options: 1) remove curChar  2) append curChar and remove the next char
             if (leftRem > 0) dfs(index + 1, left, right, leftRem - 1, rightRem, cur);
+            // append "(" to curChar and increase the num of left paran
             dfs(index + 1, left + 1, right, leftRem, rightRem, `${cur}(`);
         } else if (s[index] === ')') {
             if (rightRem > 0) dfs(index + 1, left, right, leftRem, rightRem - 1, cur);
+            // append ")" to curChar and increase the numunt of right paran
             if (left > right) dfs(index + 1, left, right + 1, leftRem, rightRem, `${cur})`);
         } else {
             // if current char is a letter, append it to curChar
@@ -56,9 +65,9 @@ const removeInvalidParentheses = s => {
     dfs(0, 0, 0, leftRem, rightRem, '');
     return [...answer];
 };
-console.log('removeInvalidParentheses', removeInvalidParentheses(')()(')); // ["()"]
-
-console.log('removeInvalidParentheses', removeInvalidParentheses(')(')); // [""]
+// console.log('removeInvalidParentheses', removeInvalidParentheses(')()(')); // ["()"]
+console.log('removeInvalidParentheses', removeInvalidParentheses('(a)())()')); // ["(a)()()", "(a())()"]
+// console.log('removeInvalidParentheses', removeInvalidParentheses(')(')); // [""]
 
 // const removeInvalidParentheses = function(s) {
 //     const res = [];
