@@ -19,7 +19,7 @@ Output: [""]
  */
 
 /**
-Solution 1 DFS
+Solution DFS
 1. Compute the numbers of misplaced parantheses
     Find out the number of misplaced left and right parentheses
     Before a matching pair is found, each parenthesis is considered as invalid
@@ -34,7 +34,7 @@ Solution 1 DFS
 3. Append to the result
  */
 
-const removeInvalidParentheses = s => {
+const removeInvalidParenthesesDFS = s => {
     const answer = new Set();
 
     let [leftRem, rightRem] = [0, 0];
@@ -83,12 +83,9 @@ const removeInvalidParentheses = s => {
     dfs(0, 0, 0, leftRem, rightRem, '');
     return [...answer]; // spread a set into an array  eg. Set { '(a())()', '(a)()()' } -->[ '(a())()', '(a)()()' ]
 };
-// console.log('removeInvalidParentheses', removeInvalidParentheses(')()(')); // ["()"]
-// console.log('removeInvalidParentheses', removeInvalidParentheses('(a)())()')); // ["(a)()()", "(a())()"]
-// console.log('removeInvalidParentheses', removeInvalidParentheses(')(')); // [""]
 
 // Solutions from AminiCK
-const removeInvalidParenthesesDFS = function(s) {
+const removeInvalidParenthesesDFS2 = function(s) {
     // sanity check
     if (!s.length) return [''];
     /**
@@ -132,28 +129,6 @@ const removeInvalidParenthesesDFS = function(s) {
     return [...result.values()];
 };
 
-// const removeInvalidParentheses = function(s) {
-//     const res = [];
-//     let max = 0;
-//     dfs(s, '', 0, 0);
-//     return res.length !== 0 ? res : [''];
-
-//     function dfs(str, subRes, countLeft, maxLeft) {
-//         if (str === '') {
-//             if (countLeft === 0 && subRes !== '') {
-//                 if (maxLeft > max) max = maxLeft;
-//                 if (max === maxLeft && res.indexOf(subRes) === -1) res.push(subRes);
-//             }
-//             return;
-//         }
-//         if (str[0] === '(') {
-//             dfs(str.substring(1), `${subRes}(`, countLeft + 1, maxLeft + 1);
-//             dfs(str.substring(1), subRes, countLeft, maxLeft);
-//         } else if (str[0] === ')') {
-//             if (countLeft > 0) dfs(str.substring(1), `${subRes})`, countLeft - 1, maxLeft);
-//             dfs(str.substring(1), subRes, countLeft, maxLeft);
-//         } else {
-//             dfs(str.substring(1), subRes + str[0], countLeft, maxLeft);
-//         }
-//     }
-// };
+console.log('removeInvalidParenthesesDFS2', removeInvalidParenthesesDFS2(')()(')); // ["()"]
+console.log('removeInvalidParenthesesDFS2', removeInvalidParenthesesDFS2('(a)())()')); // ["(a)()()", "(a())()"]
+console.log('removeInvalidParenthesesDFS2', removeInvalidParenthesesDFS2(')(')); // [""]
