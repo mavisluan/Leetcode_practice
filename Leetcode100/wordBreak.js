@@ -18,6 +18,20 @@ Output: false
 */
 
 // Solution 1 DP
+// Time: O(n^2) - Two loops to fill dp array
+// Space: O(n) - Length of dp array is n + 1
+/**
+ * Approach: The given problem (s) can be divided into subproblems s1 and s2. If theses subproblems inividually satify the required conditions, the complete problem, s also satisfies the same.
+ * Two pointers
+ * @param {*} i - the length of the substring from beginning till i (s.slice(0-i))
+ * @param {*} j - the index partitioning the current substring s.slice(0, j) and s.slice(j, i)
+ * if s.slice(0, i-j) in wordDict && s.slice(j, i) in wordDict --> isWordBreak(s.slice(0, i)) is true
+ * 		'abc'                         'de'
+ * s = 'a  b  c  d  e  f  g'       wordDict = ['abc', 'de','fg']
+ *     [0 ~  j] [j~i]
+ *      |___________|
+ *          i
+ */
 const wordBreak = (s, wordDict) => {
     const dp = new Array(s.length + 1).fill(false);
     dp[0] = true;
