@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
 Given a non-empty string s and a dictionary wordDict containing a list of non-emptywords, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
 Note:
@@ -74,3 +75,31 @@ const wordBreakBFS = (s, wordDict) => {
 
     return false;
 };
+
+// Solution 3 Memo
+// Time: O(N^2)  Size of recursion tree can go up to N^2
+// Space: O(N) The depth of recursion truee can go up to N
+const verifyBreak = (s, dict, start, memo) => {
+    // console.log(`start:${start}, memo:${memo}`);
+
+    if (start === s.length) return true;
+
+    if (memo[start] !== undefined) return memo[start];
+
+    for (let end = start + 1; end <= s.length; end++) {
+        console.log(`start:${start}, memo:${memo}, end:${end}`);
+        const word = s.substring(start, end);
+        // check if s.substring(start, end) in dict
+        // && the rest of the string also in dict
+        if (dict.has(word) && verifyBreak(s, dict, end, memo)) {
+            return (memo[start] = true);
+        }
+    }
+
+    return (memo[start] = false);
+};
+
+const wordBreakMemo = (s, wordDict) => verifyBreak(s, new Set(wordDict), 0, []);
+
+console.log('wordBreakMemo', wordBreakMemo('abcdefg', ['abc', 'de', 'fg']));
+// console.log('wordBreakMemo', wordBreakMemo('aaab', ['a', 'aa', 'aaa']));
