@@ -32,7 +32,7 @@ Output: false
  *      |___________|
  *          i
  */
-const wordBreak = (s, wordDict) => {
+const wordBreakDP = (s, wordDict) => {
     const dp = new Array(s.length + 1).fill(false);
     dp[0] = true;
 
@@ -47,4 +47,30 @@ const wordBreak = (s, wordDict) => {
     }
 
     return dp[s.length];
+};
+
+// Solution 2 BFS
+// Time: O(N^2) - For every starting index, the search can continue till the end of the giving string.
+// Space: O(N) - Queue of at most n size is needed
+const wordBreakBFS = (s, wordDict) => {
+    const dict = new Set(wordDict);
+    const visited = new Set();
+    const queue = [0];
+    while (queue.length) {
+        const start = queue.shift();
+
+        if (!visited.has(start)) {
+            for (let end = start + 1; end <= s.length; end++) {
+                const word = s.slice(start, end);
+
+                if (dict.has(word)) {
+                    if (end === s.length) return true;
+                    queue.push(end);
+                }
+            }
+            visited.add(start);
+        }
+    }
+
+    return false;
 };
