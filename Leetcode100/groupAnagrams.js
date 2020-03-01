@@ -50,10 +50,10 @@ const groupAnagrams = function(strs) {
 // Space: O(NK) - the total info content stored in dict
 const groupAnagrams2 = function(strs) {
     const dict = {};
-
+    // Time: O(N) -length of strs
     for (const word of strs) {
         const charCount = new Array(26).fill(0); // an array to track the count of each char in word
-
+        // Time: O(K) -- length of word
         for (let i = 0; i < word.length; i++) {
             const index = word.charCodeAt(i) - 'a'.charCodeAt(0);
             charCount[index]++;
