@@ -40,3 +40,30 @@ const groupAnagrams = function(strs) {
     }
     return Object.values(groups);
 };
+
+/* Solution 2 Categorize by Count
+    Maintain a map group: {string --> array} where
+    K is a string with count of 26 chars, and each value is the array of strings 
+    from the initial input 
+ */
+// Time: O(NK) - Count each str is linear in the size of the string (count every string)
+// Space: O(NK) - the total info content stored in dict
+const groupAnagrams2 = function(strs) {
+    const dict = {};
+
+    for (const word of strs) {
+        const charCount = new Array(26).fill(0); // an array to track the count of each char in word
+
+        for (let i = 0; i < word.length; i++) {
+            const index = word.charCodeAt(i) - 'a'.charCodeAt(0);
+            charCount[index]++;
+        }
+
+        charCount.join(''); // returns a new string by concatenating all of the elements in an array
+
+        if (dict[charCount]) dict[charCount].push(word);
+        else dict[charCount] = [word];
+    }
+
+    return Object.values(dict);
+};
