@@ -50,8 +50,25 @@ Recursion: Check every possible prefix of the string (s) in wordDict
 Memoization: Create a hashmap. Key-(s1) value-res
     - if key exists in hashmap, return the res 
  */
-// Time: O(N^3): Size of recursion tree can go up to N^2. The creation of list takes N time.
-// Space: O(N^3): The depth of the recursive tree can go up to n and each activation record can contain a strin glist of size n.
+
+/* Thanks for Saloni Kaur for complexity analysis
+Time: O(N* 2^N)
+To calculate the time complexity, we can calculate how many times the sub-problem was executed. 
+That is how many times the wordBreakHelper was run. That is, in the worst case scenario, of “aaaaaa”:
+If the input is “aaaaaa” and the dictionary is [a, aa, aaa, aaaa, aaaaa, aaaaaa]. 
+wordBreakHelper("aaaaaa", 6, dictionary);
+wordBreakHelper("aaaaa", 5, dictionary);
+wordBreakHelper("aaaa", 4, dictionary);
+wordBreakHelper("aaa", 3, dictionary);
+wordBreakHelper("aa", 2, dictionary);
+wordBreakHelper("a", 1, dictionary);
+
+The map would look something like this:
+Space: O(N * 2^N)
+0 -> ["a"] ----------------------------> 2^0 items
+1 -> ["a a","aa"] ---------------------> 2^1 items
+2 -> ["a a a", "aa a", "a aa", "aaa"] -> 2^2 items
+*/
 const wordBreak = (s, wordDict) => {
     if (wordDict == null || wordDict.length === 0) return [];
 
