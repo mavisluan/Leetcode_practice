@@ -99,3 +99,35 @@ const wordBreak = (s, wordDict) => {
 };
 
 console.log('wordBreak', wordBreak('catsanddogs', ['cat', 'cats', 'and', 'sand', 'dog']));
+
+// Solution 2 DP
+const wordBreakDP = (s, wordDict) => {
+    if (wordDict == null || wordDict.length === 0) return [];
+
+    const res = [];
+    wordDict = new Set(wordDict);
+    const dp = new Array(s.length + 1);
+    dp[0] = [0];
+
+    for (let i = 1; i <= s.length; i++) {
+        dp[i] = [];
+        for (let j = 0; j < i; j++) {
+            // dp[i] is an array which contains all valid indices j(s) - dp[j] is valid && slice(j, i) exists in wordDict ->  dp[i].push(j)
+            if (dp[j].length && wordDict.has(s.slice(j, i))) dp[i].push(j);
+        }
+    }
+
+    const build = (idx, suffix) => {
+        if (!idx) return res.push(suffix);
+        dp[idx].forEach(from => {
+            // if suffix is not empty, append it to the newSuffix
+            const newSuffix = suffix === '' ? s.slice(from, idx) : `${s.slice(from, idx)} ${suffix}`;
+            build(from, newSuffix);
+        });
+    };
+
+    build(s.length, '');
+    return res;
+};
+
+console.log('wordBreakDP', wordBreak('catsanddogs', ['cat', 'cats', 'and', 'sand', 'dog']));
