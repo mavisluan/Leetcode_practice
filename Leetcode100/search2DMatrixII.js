@@ -50,3 +50,43 @@ matrix = [
 target = 13
 Output: false
   */
+// Solution 1 Binary Search
+// Time: O(n * logN)  Space: O(1)
+const binarySearch = (arr, t) => {
+    let [start, end] = [0, arr.length - 1];
+
+    while (start <= end) {
+        const mid = Math.floor((start + end) / 2);
+        if (arr[mid] === t) return true;
+        if (arr[mid] < t) start = mid + 1;
+        else end = mid - 1;
+    }
+
+    return false;
+};
+
+const searchMatrix = function(matrix, target) {
+    if (!matrix.length || !matrix[0].length) return false;
+    const [maxRow, maxCol] = [matrix.length, matrix[0].length];
+    if (matrix[0][0] > target || matrix[maxRow - 1][maxCol - 1] < target) return false;
+
+    for (let r = 0; r < maxRow; r++) {
+        if (matrix[r][0] <= target && matrix[r][maxCol - 1] >= target) {
+            if (binarySearch(matrix[r], target)) return true;
+        }
+    }
+
+    return false;
+};
+
+console.log(
+    `searchMatrix`,
+    searchMatrix(
+        [
+            [1, 3, 5, 7],
+            [10, 11, 16, 20],
+            [23, 30, 34, 50],
+        ],
+        18
+    )
+);
