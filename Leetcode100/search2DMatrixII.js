@@ -51,7 +51,9 @@ target = 13
 Output: false
   */
 // Solution 1 Binary Search
-// Time: O(n * logN)  Space: O(1)
+// Do a binary search to each row
+// Time: O(M * logN) # of rows - M   # of cols - N
+// Space: O(1)
 const binarySearch = (arr, t) => {
     let [start, end] = [0, arr.length - 1];
 
