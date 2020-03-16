@@ -17,13 +17,15 @@ Consider the following matrix:
   [18, 21, 23, 26, 30]
 ]
 Given target = 5, return true.
-
 Given target = 20, return false.
  */
-// Solution 1 Binary Search
-// Do a binary search to each row
-// Time: O(M * logN) # of rows - M   # of cols - N
-// Space: O(1)
+
+/*
+    Solution 1 Binary Search
+    Do a binary search to each row
+    Time: O(M * logN) # of rows - M   # of cols - N
+    Space: O(1)
+*/
 const binarySearch = (arr, t) => {
     let [start, end] = [0, arr.length - 1];
 
@@ -38,7 +40,7 @@ const binarySearch = (arr, t) => {
 };
 
 const searchMatrix = function(matrix, target) {
-    if (!matrix.length || !matrix[0].length) return false;
+    if (!matrix || !matrix.length || !matrix[0].length) return false;
     const [maxRow, maxCol] = [matrix.length, matrix[0].length];
     if (matrix[0][0] > target || matrix[maxRow - 1][maxCol - 1] < target) return false;
 
@@ -62,3 +64,31 @@ console.log(
         18
     )
 );
+
+/*
+Solution 2 Search space reduction
+Time: O(h+w) Space: O(1)
+[                   
+  [1,   4,  7, 11, 15], <
+  [2,   5,  8, 12, 19],
+  [3,   6,  9, 16, 22],
+  [10, 13, 14, 17, 24],
+  [18, 21, 23, 26, 30]
+]  ^
+
+1. Start from leftBottom:  eg. 18  move Up: decrease   move Right: increase
+2. Start from rightTop: eg. 15    move Down: increase   move Left: decrease
+*/
+const searchMatrix2 = (matrix, target) => {
+    if (!matrix || !matrix.length || !matrix[0].length) return false;
+    const [h, w] = [matrix.length, matrix[0].length];
+
+    let [r, c] = [h - 1, 0];
+    while (r >= 0 && c <= w - 1) {
+        if (matrix[r][c] === target) return true;
+        if (matrix[r][c] < target) c++;
+        else r--;
+    }
+
+    return false;
+};
