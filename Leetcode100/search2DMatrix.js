@@ -36,29 +36,65 @@ Output: false
 
 /**
  * Video reference: https://www.youtube.com/watch?time_continue=63&v=FOa55B9Ikfg&feature=emb_logo
+ * Solution Reference: Hongbo-Miao
  * Solution 1: Binary search
  * Treat 2d (M * N) matrix as a sorted array of length M * N
  * row = idx // n and col = idx % n.
- * @param M - # of rows  
- * @param N - # of cols
-    Time: O(log(M*N)) Space: O(1)
+ * @param h - # of rows  
+ * @param w - # of cols
+    Time: O(log(h * w)) Space: O(1)
  */
 
 const searchMatrix = function(matrix, target) {
-    if (!matrix.length || !matrix[0].length) return false;
+    if (!matrix || !matrix.length || !matrix[0].length) return false;
 
-    const [m, n] = [matrix.length, matrix[0].length];
+    const [h, w] = [matrix.length, matrix[0].length];
 
-    let [start, end] = [0, m * n - 1];
+    let [start, end] = [0, h * w - 1];
     while (start <= end) {
         const mid = Math.floor((start + end) / 2);
-        const r = Math.floor(mid / n);
-        const c = mid % n;
+        const r = Math.floor(mid / w);
+        const c = mid % w;
 
         if (matrix[r][c] === target) return true;
         if (matrix[r][c] < target) start = mid + 1;
         else end = mid - 1;
     }
 
+    return false;
+};
+
+/**
+ * Solution 2: locate row first, then column
+ * Time: O(log(h) + O(log(w))) Space: O(1)
+ * @param h - # of rows
+ * @param w - # of cols
+ */
+const searchMatrix2 = (matrix, target) => {
+    if (!matrix || !matrix.length || !matrix[0].length) return false;
+    const [h, w] = [matrix.length, matrix[0].length];
+    if (target < matrix[0][0] || target > matrix[h - 1][w - 1]) return false;
+    // location target row (O(log(h)))
+    let [start, end] = [0, h - 1];
+    while (start <= end) {
+        const mid = Math.floor((start + end) / 2);
+        // compare with the smallest num in a row
+        if (matrix[mid][0] === target) return true;
+        if (matrix[mid][0] < target) start = mid + 1;
+        else end = mid - 1;
+    }
+
+    // if compare with the smallest num in a row, target row is end row
+    // else target row is start row
+    const row = end;
+    start = 0;
+    end = w - 1;
+    // search in target row  (O(log(w)))
+    while (start <= end) {
+        const mid = Math.floor((start + end) / 2);
+        if (matrix[row][mid] === target) return true;
+        if (matrix[row][mid] < target) start = mid + 1;
+        else end = mid - 1;
+    }
     return false;
 };
