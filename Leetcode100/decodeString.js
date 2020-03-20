@@ -14,3 +14,55 @@ s = "3[a]2[bc]", return "aaabcbc".
 s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 */
+
+/*
+A big thank to Hongbo-Miao for sharing the solution: 
+Reference: https://github.com/Hongbo-Miao/leetcode/blob/master/JavaScript/0394.%20Decode%20String.js
+
+countStack - record char's repeat times between []
+resStack - record the decoded string to current index
+res - record current str
+ */
+
+/** Stack */
+//               1) resStack.push(res)
+//     record #  2) Reset res = ''  /------->1) prefix: resStack.pop(); times = countStack.pop()
+//            \      | res+=char   /----> 2) res = prefix + res.repeat(times)
+//             \     |     |      /
+// After read:  3    [     a     ]     2    [    b      3       [      d       ]      c       ]
+// countStack: (3)  (3)   (3)    ()   (2)  (2)  (2)   (2 3)   (2 3)   (2 3)   (2)    (2)      ()
+//   resStack: ()   ('')  ('')   ()   ()  (aaa) (aaa) (aaa)  (aaa b) (aaa b)  (aaa) (aaa)     ()
+//        res: ''    ''    a     aaa  aaa   ''   b      b       ''     d      bddd  bdddc  aaabdddcbdddc
+const decodeString = s => {
+    const isNum = c => /\d/.test(c);
+
+    const countStack = [];
+    const resStack = [];
+    let res = '';
+    let i = 0;
+
+    while (i < s.length) {
+        if (isNum(s[i])) {
+            let count = 0;
+            while (isNum(s[i])) {
+                count = 10 * count + Number(s[i]);
+                i++;
+            }
+            countStack.push(count);
+        } else if (s[i] === '[') {
+            // push the curr decoded str to resStack and reset res
+            resStack.push(res);
+            res = '';
+            i++;
+        } else if (s[i] === ']') {
+            // res = pop the last decoded str + res * times
+            const repeatTimes = countStack.pop();
+            res = resStack.pop() + res.repeat(repeatTimes);
+            i++;
+        } else {
+            res += s[i];
+            i++;
+        }
+    }
+    return res;
+};
