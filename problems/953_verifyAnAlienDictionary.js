@@ -59,7 +59,21 @@ console.log(str);
 // Solution 1 -- Using label
 // Time: O(C) -- c is the total content of words
 // Space: O(1)
+/*
+    i --> index of words array (locate word)
+    pointer -> index of word  (locate char in word) 
+    compare: 
+    1) word1[pointer] !== word2[pointer] 
+        --> if word1[pointer] is behind word2[pointer] in order --> return false
+        --> else --> continue and increase i (move to the next two words)
 
+    2) word1[pointer] === word2[pointer]
+        --> move the pointer and continue comparing
+            --> when the pointer reaches the shorter word's length
+                means one word is the other word's subString
+                (Lexicographicaly short words come before longer word)
+            --> if word1.length > word2.length --> return false
+ */
 const isAlienSorted = function(words, order) {
     // Use a label to skip unnecessary comparisons
     compare: for (let i = 0; i < words.length - 1; i += 1) {
