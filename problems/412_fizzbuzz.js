@@ -42,6 +42,7 @@ const fizzBuzz = function (n) {
 };
 
 // Solution 2 string concatenation
+// Time: O(N)  Space: O(1)
 const fizzBuzzStringConcate = (n) => {
   const res = [];
 
@@ -50,6 +51,25 @@ const fizzBuzzStringConcate = (n) => {
     if (i % 3 === 0) str += 'Fizz';
     if (i % 5 === 0) str += 'Buzz';
     if (str === '') str += i; // if str is empty --> not divided by 3 or 5
+    res.push(str);
+  }
+
+  return res;
+};
+
+// Solution 3 Hashtable
+// Time: O(N)  Space: O(1)
+const fizzBuzzHashtable = (n) => {
+  const res = [];
+  const dict = { 3: 'Fizz', 5: 'Buzz' };
+
+  for (let i = 1; i <= n; i++) {
+    let str = '';
+
+    Object.keys(dict).forEach((key) => {
+      if (i % key === 0) str += dict[key];
+    });
+    if (str === '') str += i;
     res.push(str);
   }
 
