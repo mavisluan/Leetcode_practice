@@ -40,3 +40,18 @@ const fizzBuzz = function (n) {
   }
   return res;
 };
+
+// Solution 2 string concatenation
+const fizzBuzzStringConcate = (n) => {
+  const res = [];
+
+  for (let i = 1; i <= n; i++) {
+    let str = '';
+    if (i % 3 === 0) str += 'Fizz';
+    if (i % 5 === 0) str += 'Buzz';
+    if (str === '') str += i; // if str is empty --> not divided by 3 or 5
+    res.push(str);
+  }
+
+  return res;
+};
