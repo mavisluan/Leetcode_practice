@@ -1,3 +1,4 @@
+/* eslint-disable no-label-var */
 /* eslint-disable no-continue */
 /* eslint-disable no-labels */
 /**
@@ -42,10 +43,10 @@ Check every two adpointeracent words if they are sorted lexicographically.
 if and only if adpointeracent words are, the words arr is sorted lexicographically.
 This is because order is transitive: a <= b and b <= c implies a <= c.
 
-    i --> index of words array  
-    pointer -> index of word  
-    compare: 
-    1) word1[pointer] !== word2[pointer] 
+    i --> index of words array
+    pointer -> index of word
+    compare:
+    1) word1[pointer] !== word2[pointer]
         --> if word1[pointer] is behind word2[pointer] in order --> return false
         --> else --> continue and move i (move to the next two words)
 
@@ -75,57 +76,58 @@ console.log(str);
 // Time: O(C) -- c is the total content of words
 // Space: O(1)
 
-const isAlienSortedLabel = function(words, order) {
-    // Use a label to skip unnecessary comparisons
-    compare: for (let i = 0; i < words.length - 1; i += 1) {
-        const word1 = words[i];
-        const word2 = words[i + 1];
+const isAlienSortedLabel = (words, order) => {
+  // Use a label to skip unnecessary comparisons
+  // eslint-disable-next-line no-restricted-syntax
+  compare: for (let i = 0; i < words.length - 1; i += 1) {
+    const word1 = words[i];
+    const word2 = words[i + 1];
 
-        // compare each character of each word
-        for (let pointer = 0; pointer < Math.min(word1.length, word2.length); pointer++) {
-            console.log(`pointer:${pointer}, word1:${word1}, word2:${word2}, i:${i}`);
+    // compare each character of each word
+    for (let pointer = 0; pointer < Math.min(word1.length, word2.length); pointer++) {
+      console.log(`pointer:${pointer}, word1:${word1}, word2:${word2}, i:${i}`);
 
-            if (word1[pointer] !== word2[pointer]) {
-                if (order.indexOf(word1[pointer]) > order.indexOf(word2[pointer])) {
-                    return false;
-                }
-
-                // Break out of the inner loop since the 2 words are already in the correct order, increase i
-                continue compare;
-            }
-            // if word1[pointer] === word2[pointer], move the pointer
+      if (word1[pointer] !== word2[pointer]) {
+        if (order.indexOf(word1[pointer]) > order.indexOf(word2[pointer])) {
+          return false;
         }
 
-        // When pointer = the shorter word's length (meaning one word is the substring of the other)
-        // Word2 has to be the shorter word, if not we have an incorrect order
-        // For example: [app, apple]
-        if (word1.length > word2.length) return false;
+        // Break out of the inner loop since the 2 words are already in the correct order, increase i
+        continue compare;
+      }
+      // if word1[pointer] === word2[pointer], move the pointer
     }
-    return true;
+
+    // When pointer = the shorter word's length (meaning one word is the substring of the other)
+    // Word2 has to be the shorter word, if not we have an incorrect order
+    // For example: [app, apple]
+    if (word1.length > word2.length) return false;
+  }
+  return true;
 };
 
 // Solution 2
 // Time: O(C) -- c is the total content of words
 // Space: O(1)
-const isAlienSorted = function(words, order) {
-    // Outer loop iterate through word
-    for (let i = 0; i < words.length - 1; i++) {
-        const [word1, word2] = [words[i], words[i + 1]];
-        let pointer = 0;
-        // Inner loop iterate through char in word
-        while (pointer < Math.min(word1.length, word2.length)) {
-            if (word1[pointer] !== word2[pointer]) {
-                if (order.indexOf(word1[pointer]) > order.indexOf(word2[pointer])) return false;
-                break; // break out of inner loop, increase i
-            }
-            pointer++;
-        }
-        // when pointer = word2.length
-        // meaning 1) pointer breaks while loop 2) word2 is the short word
-        if (pointer === word2.length) return false;
+const isAlienSorted = (words, order) => {
+  // Outer loop iterate through word
+  for (let i = 0; i < words.length - 1; i++) {
+    const [word1, word2] = [words[i], words[i + 1]];
+    let pointer = 0;
+    // Inner loop iterate through char in word
+    while (pointer < Math.min(word1.length, word2.length)) {
+      if (word1[pointer] !== word2[pointer]) {
+        if (order.indexOf(word1[pointer]) > order.indexOf(word2[pointer])) return false;
+        break; // break out of inner loop, increase i
+      }
+      pointer++;
     }
+    // when pointer = word2.length
+    // meaning 1) pointer breaks while loop 2) word2 is the short word
+    if (pointer === word2.length) return false;
+  }
 
-    return true;
+  return true;
 };
 
 const words = ['hello', 'leetcode', 'world'];
@@ -136,40 +138,40 @@ const order = 'hlabcdefgipointerkmnopqrstuvwxyz';
 // Space: O(M) -- M is the length of order (Map)
 // Thanks to ValeriiVasin's solution
 const compare = (a, b, letterMap) => {
-    const [aLength, bLength] = [a.length, b.length];
-    const minLength = Math.min(aLength, bLength);
+  const [aLength, bLength] = [a.length, b.length];
+  const minLength = Math.min(aLength, bLength);
 
-    for (let pointer = 0; pointer < minLength; pointer++) {
-        const aOrder = letterMap.get(a[pointer]);
-        const bOrder = letterMap.get(b[pointer]);
+  for (let pointer = 0; pointer < minLength; pointer++) {
+    const aOrder = letterMap.get(a[pointer]);
+    const bOrder = letterMap.get(b[pointer]);
 
-        if (aOrder === bOrder) continue; // move pointer
-        if (aOrder < bOrder) return -1; // lexical order
+    if (aOrder === bOrder) continue; // move pointer
+    if (aOrder < bOrder) return -1; // lexical order
 
-        return 1; // not lexical order
-    }
+    return 1; // not lexical order
+  }
 
-    if (aLength === bLength) return 0;
-    return aLength < bLength ? -1 : 1;
+  if (aLength === bLength) return 0;
+  return aLength < bLength ? -1 : 1;
 };
 
 const isAlienSortedMap = (words, order) => {
-    // Create a map with all letters in order and their indices
-    const letterMap = new Map();
-    let i = 0;
+  // Create a map with all letters in order and their indices
+  const letterMap = new Map();
+  let i = 0;
 
-    for (const letter of order) {
-        letterMap.set(letter, i);
-        i++;
-    }
+  for (const letter of order) {
+    letterMap.set(letter, i);
+    i++;
+  }
 
-    for (let i = 0; i < words.length - 1; i++) {
-        if (compare(words[i], words[i + 1], letterMap) === -1) continue;
+  for (let i = 0; i < words.length - 1; i++) {
+    if (compare(words[i], words[i + 1], letterMap) === -1) continue;
 
-        return false;
-    }
+    return false;
+  }
 
-    return true;
+  return true;
 };
 
 console.log(isAlienSortedMap(words, order));
