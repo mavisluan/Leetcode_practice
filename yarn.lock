@@ -170,9 +170,9 @@ acorn-jsx@^5.0.0:
   integrity sha512-tMUqwBWfLFbJbizRmEcWSLw6HnFzfdJs2sOJEOwwtVPMoH/0Ay+E703oZz78VSXZiiDcZrQ5XKjPIUQixhmgVw==
 
 acorn@^6.0.7:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.0.tgz#b659d2ffbafa24baf5db1cdbb2c94a983ecd2784"
-  integrity sha512-gac8OEcQ2Li1dxIEWGZzsp2BitJxwkwcOm0zHAJLcPJaVvm58FRnk6RkuLRpU1EujipU2ZFODv2P9DLMfnV8mw==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.1.tgz#531e58ba3f51b9dacb9a6646ca4debf5b14ca474"
+  integrity sha512-ZVA9k326Nwrj3Cj9jlh3wGFutC2ZornPNARZwsNYqQYgN0EsV2d53w5RN/co65Ohn4sUAUtb1rSUAOD6XN9idA==
 
 aggregate-error@^3.0.0:
   version "3.0.1"
@@ -757,11 +757,6 @@ eslint-config-prettier@^4.3.0:
   integrity sha512-sZwhSTHVVz78+kYD3t5pCWSYEdVSBR0PXnwjDRsUs8ytIrK8PLXw+6FKp8r3Z7rx4ZszdetWlXYKOHoUrrwPlA==
   dependencies:
     get-stdin "^6.0.0"
-
-eslint-config-wesbos@0.0.19:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/eslint-config-wesbos/-/eslint-config-wesbos-0.0.19.tgz#e89a7ce5c27562295234088176346daf2b12e8b7"
-  integrity sha512-2NTh0BzSMd1VEE5jEgC40T3QQTrdCEe19mm15m/CV1/314lYtPp5GmM2t26AojxrjfKhBkJR9Thiv6w1U8i/zg==
 
 eslint-import-resolver-node@^0.3.2:
   version "0.3.3"
