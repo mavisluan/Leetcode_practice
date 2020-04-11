@@ -41,3 +41,19 @@ Note:
 All characters have an ASCII value in [35, 126].
 1 <= len(chars) <= 1000.
  */
+// Solution 1
+const compress = (chars) => {
+  let len = 1; let
+    startIdx = 0;
+  for (i = 0; i < chars.length; i++) {
+    if (chars[i] == chars[i + 1]) len++;
+    else if (len > 1) {
+      const arr = len.toString().split('');
+      chars.splice(startIdx + 1, len - 1, ...arr);
+      startIdx = (i + 1) - (len - arr.length - 1);
+      i -= (len - arr.length - 1);
+      len = 1;
+    } else startIdx++;
+  }
+  return chars.length;
+};
