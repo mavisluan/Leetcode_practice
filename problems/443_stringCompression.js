@@ -42,11 +42,50 @@ All characters have an ASCII value in [35, 126].
 1 <= len(chars) <= 1000.
  */
 // Solution 1
-const compress = (chars) => {
-  let len = 1; let
-    startIdx = 0;
-  for (i = 0; i < chars.length; i++) {
-    if (chars[i] == chars[i + 1]) len++;
+// Time: O(N)  Space: O(1)
+/**
+ *
+ * @param {compressIdx} - iterate through chars to update value for the compressed Chars
+ * @param {charIdx} - move when compare-char is different as char
+ * @param {compareIdx} - move when compare-char is the same as char
+ * @param {counter} - count how many same chars for each char
+ */
+
+const compress1 = (chars) => {
+  let compressIdx = 0;
+  let charIdx = 0;
+  const size = chars.length;
+
+  while (charIdx < size) {
+    let counter = 1;
+    let compareIdx = charIdx + 1;
+    while (compareIdx < size && chars[charIdx] === chars[compareIdx]) {
+      counter++;
+      compareIdx++;
+    }
+
+    chars[compressIdx] = chars[charIdx];
+    compressIdx++;
+    if (counter > 1) {
+      const numStrs = counter.toString();
+      for (const num of numStrs) { // if counter is more than 1 digit
+        chars[compressIdx] = num;
+        compressIdx++;
+      }
+    }
+    charIdx = compareIdx;
+  }
+
+  chars = chars.slice(0, compressIdx);
+  console.log('chars', chars);
+  return chars.length;
+};
+// Solution 2
+const compress2 = (chars) => {
+  let len = 1;
+  let startIdx = 0;
+  for (let i = 0; i < chars.length; i++) {
+    if (chars[i] === chars[i + 1]) len++;
     else if (len > 1) {
       const arr = len.toString().split('');
       chars.splice(startIdx + 1, len - 1, ...arr);
@@ -57,3 +96,10 @@ const compress = (chars) => {
   }
   return chars.length;
 };
+
+const chars1 = ['a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'];
+// ["a","3","b","2","a","2"]
+const chars2 = ['a', 'a', 'a', 'b', 'b', 'a', 'a'];
+// ["a","b","1","2"]
+console.log('compress1', compress1(chars1));
+console.log('compress1', compress1(chars2));
