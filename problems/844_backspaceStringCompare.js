@@ -54,3 +54,43 @@ const backspaceCompare = (S, T) => {
 
   return build(S) === build(T);
 };
+
+
+// Solution 2 Two Pointers
+// Reference: ethaneff's solution
+// Time: O(M+N)  Space: O(1)
+const backspaceCompareTwoPointers = (s, t) => {
+  let sPointer = s.length - 1;
+  let tPointer = t.length - 1;
+  let sCount = 0;
+  let tCount = 0;
+
+  while (sPointer >= 0 || tPointer >= 0) {
+    const sItem = s[sPointer];
+    const tItem = t[tPointer];
+    if (sItem === '#') {
+      sPointer--;
+      sCount++;
+    } else if (tItem === '#') {
+      tPointer--;
+      tCount++;
+    } else if (sCount > 0) {
+      sCount--;
+      sPointer--;
+    } else if (tCount > 0) {
+      tCount--;
+      tPointer--;
+    } else if (sPointer >= 0 && tPointer >= 0 && sItem !== tItem) {
+      return false;
+    } else if (sPointer >= 0 !== tPointer >= 0) {
+    // if one pointer is out of range and the other pointer is within the range
+    // Compare a char with nothing --> return false;
+    // else if ((sPointer < 0 || tPointer < 0) && sPointer !== tPointer)
+      return false;
+    } else {
+      sPointer--;
+      tPointer--;
+    }
+  }
+  return true;
+};
