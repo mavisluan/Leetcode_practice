@@ -38,3 +38,25 @@ const lastStoneWeight = (stones) => {
   stones[stones.length - 1] = bigger - smaller;
   return lastStoneWeight(stones);
 };
+
+// Solution 2 Sort + Iteration
+// Time: O(N^2)
+// Space: O(1) - O(N)  Modify the input
+const lastStoneWeightIteration = (stones) => {
+  stones.sort((a, b) => a - b); // O(N logN)
+
+  while (stones.length > 1) { // O(N)
+    const diff = stones.pop() - stones.pop();
+
+    if (diff > 0) {
+      let idx = 0;
+      // find the nearest smaller num's index to diff
+      while (diff > stones[idx]) { // O(N)
+        idx++;
+      }
+      stones.splice(idx, 0, diff); // insert diff
+    }
+  }
+
+  return stones.length ? stones[0] : 0;
+};
