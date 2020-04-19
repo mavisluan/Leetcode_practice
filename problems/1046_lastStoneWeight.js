@@ -60,3 +60,70 @@ const lastStoneWeightIteration = (stones) => {
 
   return stones.length ? stones[0] : 0;
 };
+
+// Solution 3 Heap/ Priority Queue (heapq is a binary heap, with O(log N) push and O(log N) pop . )
+/* Time: O(N logN)
+-- Converting an array into a Heap takes O(N)
+-- the main loop iterates up to N-1 times.
+  It's doing up to three O(log N) operation each time
+  -- Two removes and one opitional add (drop constant 3)
+  N * (O logN)
+
+  Space: Python: O(1)  or  Java: O(N)
+  In Python, converting a list to a heap is done in-place, requireing O(1) space complexity.
+  Modifying the input has its pros and cons; it saves space, but it means that other functions can't use the same array.
+
+  In Java, it's O(N) to create PriorityQueue.
+*/
+/**
+ * Pseudocode using a max Heap
+  define function last_stone_weight(stones):
+    heap = a new Max-Heap
+    add all stones to heap
+    while heap contains more than 1 stone:
+        heavy_stone_1 = remove max from heap
+        heavy_stone_2 = remove max from heap
+        if heavy_stone_1 is heavier than heavy_stone_2:
+            new_stone = heavy_stone_1 - heavy_stone_2
+            add new_stone to heap
+    if heap is empty:
+        return 0
+    return last stone on heap
+ */
+/*
+Note
+ * While most programming languages have a Heap/ Priority Queue data structure, some,
+ such as Python and Java, only have Min-Heap. Just as the name suggests,
+ this is a Heap that instead of always returning the maximum item,
+ it returns the minimum.
+There are two solutions to this problem:
+
+Multiply all numbers going into the heap by -1, and then multiply them by -1 to restore them when they come out.
+Pass a comparator in (language-dependent).
+ */
+/* Python solution
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+
+        # Make all the stones negative. We want to do this *in place*, to keep the
+        # space complexity of this algorithm at O(1).
+        for i in range(len(stones)):
+            stones[i] *= -1
+
+        # Heapify all the stones.
+        heapq.heapify(stones)  // O(N)
+
+        # While there is more than one stone left, remove the two
+        # largest, smash them together, and insert the result
+        # back into the heap if it is non-zero.
+        while len(stones) > 1: Time: O(N - 1)
+            stone_1 = heapq.heappop(stones)  // Time: O(log N)
+            stone_2 = heapq.heappop(stones) // Time: O(log N)
+            if stone_1 != stone_2:
+                heapq.heappush(stones, stone_1 - stone_2) // Time: O(log N)
+
+        # Check if there is a stone left to return. Convert it back
+        # to positive.
+        return -heapq.heappop(stones) if stones else 0
+
+*/
