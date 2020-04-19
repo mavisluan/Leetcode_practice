@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable no-tabs */
 /*
 1046. Last Stone Weight - Easy
 We have a collection of stones, each stone has a positive integer weight.
@@ -127,3 +129,66 @@ class Solution:
         return -heapq.heappop(stones) if stones else 0
 
 */
+
+// JavaScript PriorityQueue -- Reference Max04's solution
+class PriorityQueue {
+  constructor() {
+    this.heap = [null];
+  }
+
+  insert(value) {
+    this.heap.push(value);
+    let currentNodeIdx = this.heap.length - 1;
+    let currentNodeParentIdx = Math.floor(currentNodeIdx / 2);
+    while (this.heap[currentNodeParentIdx] && value > this.heap[currentNodeParentIdx]) {
+		  const parent = this.heap[currentNodeParentIdx];
+		  this.heap[currentNodeParentIdx] = value;
+		  this.heap[currentNodeIdx] = parent;
+		  currentNodeIdx = currentNodeParentIdx;
+		  currentNodeParentIdx = Math.floor(currentNodeIdx / 2);
+    }
+  }
+
+  remove() {
+	  if (this.heap.length < 3) {
+      const toReturn = this.heap.pop();
+      this.heap[0] = null;
+      return toReturn;
+	  }
+	  const toRemove = this.heap[1];
+	  this.heap[1] = this.heap.pop();
+	  let currentIdx = 1;
+	  let [left, right] = [2 * currentIdx, 2 * currentIdx + 1];
+	  let currentChildIdx = this.heap[right]
+		  && this.heap[right] >= this.heap[left] ? right : left;
+	  while (this.heap[currentChildIdx] && this.heap[currentIdx] < this.heap[currentChildIdx]) {
+      const currentNode = this.heap[currentIdx];
+      const currentChildNode = this.heap[currentChildIdx];
+      this.heap[currentChildIdx] = currentNode;
+      this.heap[currentIdx] = currentChildNode;
+		 currentIdx = currentChildIdx;
+      [left, right] = [2 * currentIdx, 2 * currentIdx + 1];
+      currentChildIdx = this.heap[right]
+		  && this.heap[right] >= this.heap[left] ? right : left;
+	  }
+	  return toRemove;
+  }
+}
+
+const lastStoneWeightHeap = (stones) => {
+  const pq = new PriorityQueue();
+  for (let i = 0; i < stones.length; i++) {
+    pq.insert(stones[i]);
+  }
+  while (pq.heap.length > 2) {
+    const x = pq.remove();
+    const y = pq.remove();
+    if (x !== y) {
+      const max = Math.max(x, y);
+      const min = Math.min(x, y);
+      const z = max - min;
+      pq.insert(z);
+    }
+  }
+  return pq.remove();
+};
