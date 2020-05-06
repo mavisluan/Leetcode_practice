@@ -1,5 +1,5 @@
-// Solution1
-// Time: O(n^2)
+// Solution1  Two pointers
+// Time: O(n^2) Space: O(log N) to O(N)
 const threeSum = function (arr) {
   // if (arr === null || arr.length < 3) return [arr];
   if (arr.length === 3) {
@@ -52,35 +52,74 @@ const moveRight = (arr, right) => {
 const nums = [-1, 0, 1, 2, -1, -4];
 
 console.log('threeSum', threeSum(nums));
-// Solution 2
-const threeSum2 = (nums) => {
-  nums.sort((a, b) => a - b);
+
+// Solution 2 Set
+// Time: O(N ^2) Space: O(N)
+/*
+  Create a set in outer loop to filter out duplicate --> space: O(N)
+  For each unique a, if (a + b + c === 0), save b in a set.
+  if ( num[left] === b ) b is duplicate, so is c.
+*/
+const threeSumSet = (nums) => {
+  nums.sort((a, b) => a - b);  // Time: O(N logN)
   const res = [];
-  let tempA = nums[0];
-  for (let i = 0; i < nums.length - 2; i++) {
-    if (nums[i] === tempA && i !== 0) continue;
+  for (let i = 0; i < nums.length - 2; i++) { // T: O(N)
+    if (i > 0 && nums[i] === nums[i-1]) continue; // avoid duplicate a
     const a = nums[i];
+    let [left, right] = [i + 1, nums.length - 1];
+    const set = new Set();
 
-    let [left, right] = [i+1, nums.length - 1];
-    let tempB = nums[left];
-    let firstFlag = true;
-    while (left < right) {
+    while (left < right) {                 // T: O(N)
       const [b, c] = [nums[left], nums[right]];
+      if (a + b + c === 0) {
+        if (set.has(b)) { // avoid duplicate b && c
+          left ++;
+          continue;
+        }
 
-      if (b === tempB && !firstFlag ){
-        left++;
-        continue
-      }
-      if(b + c === -a) {
         res.push([a, b, c]);
+        set.add(b);
         left ++;
-        tempB = b;
-        firstFlag = false;
-      } else if (b + c > - a) right --;
-      else left ++;
+        right --;
+      } else if (a + b + c < 0) {
+        left ++;
+      } else {
+        right --;
+      }
     }
-    tempA = a;
   }
 
   return res;
-};
+}
+
+// const threeSum2 = (nums) => {
+//   nums.sort((a, b) => a - b);
+//   const res = [];
+//   let tempA = nums[0];
+//   for (let i = 0; i < nums.length - 2; i++) {
+//     if (nums[i] === tempA && i !== 0) continue;
+//     const a = nums[i];
+//
+//     let [left, right] = [i+1, nums.length - 1];
+//     let tempB = nums[left];
+//     let firstFlag = true;
+//     while (left < right) {
+//       const [b, c] = [nums[left], nums[right]];
+//
+//       if (b === tempB && !firstFlag ){
+//         left++;
+//         continue
+//       }
+//       if(b + c === -a) {
+//         res.push([a, b, c]);
+//         left ++;
+//         tempB = b;
+//         firstFlag = false;
+//       } else if (b + c > - a) right --;
+//       else left ++;
+//     }
+//     tempA = a;
+//   }
+//
+//   return res;
+// };
