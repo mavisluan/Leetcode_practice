@@ -1,5 +1,5 @@
 /**
- * 
+ *
  *322. Coin Change
 Medium
 You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
@@ -7,39 +7,53 @@ You are given coins of different denominations and a total amount of money amoun
 Example 1:
 
 Input: coins = [1, 2, 5], amount = 11
-Output: 3 
+Output: 3
 Explanation: 11 = 5 + 5 + 1
 Example 2:
 
 Input: coins = [2], amount = 3
 Output: -1
 Note:
-You may assume that you have an infinite number of each kind of coin. 
+You may assume that you have an infinite number of each kind of coin.
 
  */
 /*
 Thanks for the solution and comment from dball1126
 Leetcode discuss group
-The idea is to build up to the amount. 
-If the amount is 11, we figure out the amounts of 0...10 and then eleven. 
-How many coins fit into amount of 0? How many coins fit into amount of 1? And so on... 
+The idea is to build up to the amount.
+If the amount is 11, we figure out the amounts of 0...10 and then eleven.
+How many coins fit into amount of 0? How many coins fit into amount of 1? And so on...
 
 1. create an array called DP(Dynamic Programming) and set it to 1 + amount
-2. since it's Zero based, we prefill it with the same value. 
-3. The iterator becomes our amount in the first for loop ( i ), and we only take the coin if it can fit into ( i ). 
-    - Notes: The trickiest part is probably the ( dp[i - coin] + 1 ). 
+2. since it's Zero based, we prefill it with the same value.
+3. The iterator becomes our amount in the first for loop ( i ), and we only take the coin if it can fit into ( i ).
+    - Notes: The trickiest part is probably the ( dp[i - coin] + 1 ).
     This is the dynamic programming part of our algorithm. It uses the previous amount already computed.
-    Our amount is ( i ), but when we do (i - coin) we have a new amount which is already hopefully computed at that specific index, 
-    if it is, we take the amount of coins there and add + 1 for the coin we just used to subtract it. 
-    The (- coin) statement is essentially our ( +1 ). 
+    Our amount is ( i ), but when we do (i - coin) we have a new amount which is already hopefully computed at that specific index,
+    if it is, we take the amount of coins there and add + 1 for the coin we just used to subtract it.
+    The (- coin) statement is essentially our ( +1 ).
 */
 
 // Time: O(n * m)  n - the amount in our DP array,  m - the amount of coins in our coins array
 // Space: O(n)   n- the amount in our DP array, because we allocated this additional array it takes additionaly space/memory
 
+
+/*
+    coins: [ 1,  2,  5]       amount: 11
+                                                                                              min count * of
+      i : 0, 1,   2,  3,   4,   5,   6,    7,  8,   9,  10,   11  <--- total amount           diff value   +  1 (current coin count)
+    dp: [ 0, 12, 12,  12,  12,  12,  12,  12,  12,  12, 12,  12]                                    |         |
+   count     1*-- 2 --3 -- 2 -- 3 -- 2 -- 3 -- 3 -- 4 -- 4 -- 3   <---- count:  Math.min(dp[i], dp[i-coin] +  1)
+                  1*--2*-- 2*-- 3 -- 3 -- 2 -- 3 -- 3 -- 4 -- 4
+                             -- 1*-- 2*-- 2*-- 3*-- 3*-- 2*-- 3*
+
+ coin|diff: 1|0- 1|1- 1|2 -1|3 -1|4 -1|5- 1|6 -1|7- 1|8- 1|9- 1|10 <---- diff = i- coinVal
+            2    2|0- 2|1 -2|2 -2|3 -2|4 -2|5- 2|6 -2|7 -2|8 - 2|9
+                 5    5    5    5|0 -5|1- 5|2 -5|3- 5|4 -5|5 - 5|6
+ */
 const coinChange = (coins, amount) => {
     if (amount <= 0) return 0;
-    // Create a DP array and prefill all elements with amount + 1 (becausej we don't consider coin 0, we need to add amount + 1)
+    // Create a DP array and prefill all elements with amount + 1 (because we don't consider coin 0, we need to add amount + 1)
     const dp = new Array(amount + 1).fill(amount + 1);
     dp[0] = 0; // Every element in our dp array is an amount. Amount 0 equates to 0 coins."
     console.log('dp[0]', dp[0]);
