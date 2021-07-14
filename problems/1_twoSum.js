@@ -39,32 +39,66 @@ const twoSum1 = (nums, target) => {
 
 
 // Solution 2 One-pass Hash Table
-// iterate and insert element into the table
-// look back to check if current element's diff exists in the table
-// Time: O(n) Space: O(n)
-const twoSum2 = (nums, target) => {
-  const map = {};
-  for (let i = 0; i < nums.length; i++) {
-    const diff = target - nums[i];
+/*
+Thoughts:
+(a + b) = target
+diff = target - a
+diff = b
 
-    if (diff in map && map[diff] !== i) {
-      return [i, map[diff]];
-    }
-    map[nums[i]] = i;
-  }
-};
+For each current number a,
+1. keep track of its diff and index in a dictionary
+2. check if the next num (b) exists in diff dict (check if b === diff)
 
+Initiate
+    a dict = { diff: index }
+Keep track of
+1) "diff" -> iterate to the next num, check if the num exists in dict (diff)
+(because num + diff = target)
+2) "index" -> when the two nums are found, we want to return the indices
 
+Iterate through the nums array (i)
+    find out if the nums[i] exists in the dict
+        Yes -> return {dict[diff], i}
+        No ->
+            calculate the diff (target - num)
+            add {diff: index} to dict
+
+Input:
+target = 13
+        0   1  2  3   4  5
+nums =  [2, 7, 5, 9, 11,15]
+                      ^
+diff    11  6  8  4
+dict={11: 0, 6:1, 8:2, 4: 3, }
+
+Output: [0,4]
+Time: O(N)
+Space: O(N)
+*/
 // HashTable One-pass  --- Time: O(N)  Space: O(N)
-const twoSum = (nums, target) => {
-  const map = {};
+const twoSum2 = function (nums, target) {
+  const dict = {};
+  let diff = 0;
   for (let i = 0; i < nums.length; i++) {
-    const val = nums[i];
-    const diff = target - val;
-    if (map[diff] >= 0) return [i, map[diff]];
-    map[val] = i; // One num can not be used twice --> save val at the end
+    const num = nums[i];
+    if (dict[num] !== null && dict[num] !== undefined) {
+      return [dict[num], i];
+    }
+    diff = target - num;
+    dict[diff] = i;
   }
 };
+
+
+// const twoSum = (nums, target) => {
+//   const map = {};
+//   for (let i = 0; i < nums.length; i++) {
+//     const val = nums[i];
+//     const diff = target - val;
+//     if (map[diff] >= 0) return [i, map[diff]];
+//     map[val] = i; // One num can not be used twice --> save val at the end
+//   }
+// };
 
 // console.log('twoSum2', twoSum2([2, 7, 11, 15], 9));
 console.log('twoSum2', twoSum2([2, 3, 5, 10], 7));
