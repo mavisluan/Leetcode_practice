@@ -1,5 +1,32 @@
+/**
+ * 15. 3Sum  -- Medium
+ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
+ such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+ Notice that the solution set must not contain duplicate triplets.
+
+ Example 1:
+
+ Input: nums = [-1,0,1,2,-1,-4]
+ Output: [[-1,-1,2],[-1,0,1]]
+ Example 2:
+
+ Input: nums = []
+ Output: []
+ Example 3:
+
+ Input: nums = [0]
+ Output: []
+
+ Constraints:
+
+ 0 <= nums.length <= 3000
+ -105 <= nums[i] <= 105
+ * @param arr
+ * @returns {*[]}
+ */
 // Solution1  Two pointers
-// Time: O(n^2) Space: O(log N) to O(N)
+// Time: O(n^2) Space: O(log N) to O(N) , depending on the implementation of the sorting algorithm.
 const threeSum = function (arr) {
   // if (arr === null || arr.length < 3) return [arr];
   if (arr.length === 3) {
@@ -92,34 +119,34 @@ const threeSumSet = (nums) => {
   return res;
 }
 
-// const threeSum2 = (nums) => {
-//   nums.sort((a, b) => a - b);
-//   const res = [];
-//   let tempA = nums[0];
-//   for (let i = 0; i < nums.length - 2; i++) {
-//     if (nums[i] === tempA && i !== 0) continue;
-//     const a = nums[i];
-//
-//     let [left, right] = [i+1, nums.length - 1];
-//     let tempB = nums[left];
-//     let firstFlag = true;
-//     while (left < right) {
-//       const [b, c] = [nums[left], nums[right]];
-//
-//       if (b === tempB && !firstFlag ){
-//         left++;
-//         continue
-//       }
-//       if(b + c === -a) {
-//         res.push([a, b, c]);
-//         left ++;
-//         tempB = b;
-//         firstFlag = false;
-//       } else if (b + c > - a) right --;
-//       else left ++;
-//     }
-//     tempA = a;
-//   }
-//
-//   return res;
-// };
+const threeSumFirstFlag = (nums) => {
+  nums.sort((a, b) => a - b);
+  const res = [];
+  let tempA = nums[0];
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (nums[i] === tempA && i !== 0) continue;
+    const a = nums[i];
+
+    let [left, right] = [i+1, nums.length - 1];
+    let tempB = nums[left];
+    let firstFlag = true;
+    while (left < right) {
+      const [b, c] = [nums[left], nums[right]];
+
+      if (b === tempB && !firstFlag ){
+        left++;
+        continue
+      }
+      if(b + c === -a) {
+        res.push([a, b, c]);
+        left ++;
+        tempB = b;
+        firstFlag = false;
+      } else if (b + c > - a) right --;
+      else left ++;
+    }
+    tempA = a;
+  }
+
+  return res;
+};
